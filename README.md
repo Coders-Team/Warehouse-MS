@@ -21,6 +21,14 @@ Implementing a Warehouse-MS can help an organization reduce labor costs, improve
 
 We think business software should cover complex needs without being complicated. Our mission is to provide software that is intuitive, full-featured, tightly integrated, effortless to upgrade, all while running smoothly for every business, every user.
 
+## Application Architecture
+![Application Architecture](./img/Application-Architecture.png)
+
+## Application Projects
+
+![Application Projects](./img/Application-Projects.png)
+
+
 ## Wireframes
 
 - Home Page
