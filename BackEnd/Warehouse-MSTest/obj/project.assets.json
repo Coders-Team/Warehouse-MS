@@ -8477,19 +8477,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\LEGION\\.nuget\\packages\\": {}
+    "C:\\Users\\User\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\LEGION\\Source\\Repos\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\Warehouse-MSTest.csproj",
+      "projectUniqueName": "C:\\Users\\User\\source\\repos\\Coders-Team\\lastclone\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\Warehouse-MSTest.csproj",
       "projectName": "Warehouse-MSTest",
-      "projectPath": "C:\\Users\\LEGION\\Source\\Repos\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\Warehouse-MSTest.csproj",
-      "packagesPath": "C:\\Users\\LEGION\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\LEGION\\Source\\Repos\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\obj\\",
+      "projectPath": "C:\\Users\\User\\source\\repos\\Coders-Team\\lastclone\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\Warehouse-MSTest.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\User\\source\\repos\\Coders-Team\\lastclone\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\LEGION\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8503,8 +8503,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\LEGION\\Source\\Repos\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj": {
-              "projectPath": "C:\\Users\\LEGION\\Source\\Repos\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj"
+            "C:\\Users\\User\\source\\repos\\Coders-Team\\lastclone\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj": {
+              "projectPath": "C:\\Users\\User\\source\\repos\\Coders-Team\\lastclone\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj"
             }
           }
         }
@@ -8555,7 +8555,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
