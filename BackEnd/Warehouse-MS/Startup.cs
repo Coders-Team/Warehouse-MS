@@ -1,3 +1,5 @@
+using FastMarket.Models.Interfaces;
+using FastMarket.Models.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -29,6 +31,12 @@ namespace Warehouse_MS
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
                 options.UseSqlServer(connectionString);
             });
+
+
+            services.AddScoped<IProductType, ProductTypeService>();
+            services.AddScoped<IStorageType, StorageTypeService>();
+
+            services.AddScoped<ITransaction, TransactionService>();
 
             services.AddControllers()
                    .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
