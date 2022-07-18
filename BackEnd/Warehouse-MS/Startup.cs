@@ -51,6 +51,8 @@ namespace Warehouse_MS
             services.AddTransient<IProduct, ProductServices>();
 
             services.AddScoped<ITransaction, TransactionService>();
+            services.AddTransient<IStorage, StorageService>();
+            services.AddTransient<IWarehouse, WarehouseService>();
 
             services.AddControllers()
                    .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
