@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Warehouse_MS.Data;
+using Warehouse_MS.Models.Interfaces;
+using Warehouse_MS.Models.Services;
 
 namespace Warehouse_MS
 {
@@ -35,6 +37,7 @@ namespace Warehouse_MS
 
             services.AddScoped<IProductType, ProductTypeService>();
             services.AddScoped<IStorageType, StorageTypeService>();
+            services.AddTransient<IProduct, ProductServices>();
 
             services.AddScoped<ITransaction, TransactionService>();
 

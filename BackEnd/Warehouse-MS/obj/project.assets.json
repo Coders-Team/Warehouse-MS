@@ -5656,19 +5656,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\fmanx\\.nuget\\packages\\": {}
+    "C:\\Users\\LEGION\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fmanx\\Desktop\\WMS\\m7d18\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj",
+      "projectUniqueName": "C:\\Users\\LEGION\\Source\\Repos\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj",
       "projectName": "Warehouse-MS",
-      "projectPath": "C:\\Users\\fmanx\\Desktop\\WMS\\m7d18\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj",
-      "packagesPath": "C:\\Users\\fmanx\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\fmanx\\Desktop\\WMS\\m7d18\\Warehouse-MS\\BackEnd\\Warehouse-MS\\obj\\",
+      "projectPath": "C:\\Users\\LEGION\\Source\\Repos\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj",
+      "packagesPath": "C:\\Users\\LEGION\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\LEGION\\Source\\Repos\\Warehouse-MS\\BackEnd\\Warehouse-MS\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\fmanx\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\LEGION\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5731,12 +5731,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[5.0.14, 5.0.14]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -5745,7 +5739,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
       }
     }
   }
