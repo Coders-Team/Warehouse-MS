@@ -35,6 +35,10 @@ namespace Warehouse_MS.Controllers
         public async Task<ActionResult<ProductType>> GetProductType(int id)
         {
             ProductType productType = await _productType.GetProductType(id);
+            if (productType == null)
+            {
+                return NotFound();
+            }
             return Ok(productType);
         }
 
@@ -64,6 +68,11 @@ namespace Warehouse_MS.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProductType(int id)
         {
+            ProductType productType = await _productType.GetProductType(id);
+            if (productType == null)
+            {
+                return NotFound();
+            }
             await _productType.Delete(id);
             return NoContent();
 

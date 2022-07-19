@@ -8482,11 +8482,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fmanx\\Desktop\\WMS\\m7d19\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\Warehouse-MSTest.csproj",
+      "projectUniqueName": "C:\\Users\\fmanx\\Desktop\\WMS\\m7\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\Warehouse-MSTest.csproj",
       "projectName": "Warehouse-MSTest",
-      "projectPath": "C:\\Users\\fmanx\\Desktop\\WMS\\m7d19\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\Warehouse-MSTest.csproj",
+      "projectPath": "C:\\Users\\fmanx\\Desktop\\WMS\\m7\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\Warehouse-MSTest.csproj",
       "packagesPath": "C:\\Users\\fmanx\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\fmanx\\Desktop\\WMS\\m7d19\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\obj\\",
+      "outputPath": "C:\\Users\\fmanx\\Desktop\\WMS\\m7\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\fmanx\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -8503,8 +8503,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\fmanx\\Desktop\\WMS\\m7d19\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj": {
-              "projectPath": "C:\\Users\\fmanx\\Desktop\\WMS\\m7d19\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj"
+            "C:\\Users\\fmanx\\Desktop\\WMS\\m7\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj": {
+              "projectPath": "C:\\Users\\fmanx\\Desktop\\WMS\\m7\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj"
             }
           }
         }

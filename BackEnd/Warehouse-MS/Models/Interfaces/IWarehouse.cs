@@ -20,5 +20,9 @@ namespace Warehouse_MS.Models.Interfaces
 
         // method to Delete a Warehouse
         Task Delete(int id);
+
+
+
+        public Task<Storage> AddStorageToWarehouse(StorageDto storageDto);
     }
 }

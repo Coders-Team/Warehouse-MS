@@ -22,6 +22,8 @@ namespace Warehouse_MS.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StorageType>>> GeStorageTypes()
         {
+            
+
             var storageTypes = await _storageType.GetStorageTypes();
             return Ok(storageTypes);
         }
@@ -31,6 +33,10 @@ namespace Warehouse_MS.Controllers
         public async Task<ActionResult<StorageType>> GetStorageType(int id)
         {
             StorageType storageType = await _storageType.GetStorageType(id);
+            if (storageType == null)
+            {
+                return NotFound();
+            }
             return Ok(storageType);
         }
 
@@ -60,6 +66,12 @@ namespace Warehouse_MS.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStorageType(int id)
         {
+            var storgeType = await _storageType.GetStorageType(id);
+            if (storgeType == null)
+            {
+                return NotFound();
+            }
+
             await _storageType.Delete(id);
             return NoContent();
 

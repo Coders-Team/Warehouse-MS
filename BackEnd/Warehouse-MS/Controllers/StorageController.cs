@@ -63,6 +63,11 @@ namespace Warehouse_MS.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStorage(int id)
         {
+            var storage = await _storage.GetStorage(id);
+            if (storage == null)
+            {
+                return NotFound();
+            }
             await _storage.Delete(id);
             return NoContent();
         }

@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -89,8 +91,74 @@ namespace Warehouse_MS.Models.Services
         public async Task Delete(int id)
         {
             Warehouse warehouse = await _context.Warehouse.FindAsync(id);
+
+            
+
             _context.Entry(warehouse).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
+
         }
+
+        public async Task<Storage> AddStorageToWarehouse(StorageDto storageDto)
+        {
+            var newSize = SizeisOk(storageDto.SizeInUnit, storageDto.WarehouseId).Result;
+
+            if (newSize== null)
+            {
+                return null;
+            }
+
+            Storage storage = new Storage()
+            {
+                Name = storageDto.Name,
+                StorageTypeId = storageDto.StorageTypeId,
+                WarehouseId = storageDto.WarehouseId,
+                SizeInUnit = (int)SizeisOk(storageDto.SizeInUnit , storageDto.WarehouseId).Result,
+                LocationInWarehouse = storageDto.LocationInWarehouse,
+                Description = storageDto.Description
+
+
+            };
+
+            _context.Entry(storage).State = EntityState.Added;
+            await _context.SaveChangesAsync();
+
+            return storage;
+
+        }
+
+      
+
+
+        /// <summary>
+        /// to chech if the total storage size is less than warehouse 
+        /// </summary>
+        /// <param name="sizeInUnit"></param>
+        /// <param name="warehouseId"></param>
+        /// <returns></returns>
+        private async Task< int?> SizeisOk(int sizeInUnit, int warehouseId)
+        {
+
+            WarehouseDto warehouse = await GetWarehouse(warehouseId);
+            if (warehouse == null)
+            {
+                return null;
+            }
+
+            int totalStze = 0;
+            foreach (StorageDto storge in warehouse.Storages)
+            {
+                totalStze += storge.SizeInUnit;
+                
+            }
+            if (totalStze+sizeInUnit> warehouse.SizeInUnit)
+            {
+                return null;
+            }
+            return sizeInUnit;
+
+        }
+
+
     }
 }

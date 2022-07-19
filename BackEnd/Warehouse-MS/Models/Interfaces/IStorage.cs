@@ -20,5 +20,18 @@ namespace Warehouse_MS.Models.Interfaces
 
         // method to Delete a Storage
         Task Delete(int id);
+
+
+        Task<List<StorageDto>> GetStoragesbyType(int storageTypeId);
+
+
+
+        public Task<ProductDto> AddProducteToStorage(ProductDto productDto);
+        public Task RemoveProductStorage(int productId);
+
+        Task<Product> UpdateProduct(int id, ProductRelocateDto productRelocateDto);
+
+
+
     }
 }
