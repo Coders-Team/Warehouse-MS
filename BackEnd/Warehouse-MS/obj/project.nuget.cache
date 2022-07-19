@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LKD2KyRM6uHPwhphD4nmnCHfYCeBsWbk0VgSE2BSZaUknndAGqXBt0rIIvhrsAwR8igCR77SjDqlC7v8LjZDRg==",
+  "dgSpecHash": "vCoXsPtGxsCIlPIkT/znSax7belQZmI81LHtiOnG7XKtP/9aPbduTVRn/wD/BOYoFDICx6ElyGx33d0FDxCWfw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\fmanx\\Desktop\\WMS\\m7d19\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj",
+  "projectFilePath": "C:\\Users\\fmanx\\Desktop\\WMS\\m7\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\fmanx\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\fmanx\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.17\\microsoft.aspnetcore.cryptography.internal.5.0.17.nupkg.sha512",

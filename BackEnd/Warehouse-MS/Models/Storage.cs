@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Warehouse_MS.Models
 {
@@ -17,6 +18,11 @@ namespace Warehouse_MS.Models
         public StorageType StorageType { get; set; }
         [ForeignKey("StorageType")]
         public int StorageTypeId { get; set; }
+
+
+
+        //Navigation properties
+        public List<Product> Products { get; set; }
 
     }
 }

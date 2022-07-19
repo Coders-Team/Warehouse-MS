@@ -5661,11 +5661,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fmanx\\Desktop\\WMS\\m7d19\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj",
+      "projectUniqueName": "C:\\Users\\fmanx\\Desktop\\WMS\\m7\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj",
       "projectName": "Warehouse-MS",
-      "projectPath": "C:\\Users\\fmanx\\Desktop\\WMS\\m7d19\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj",
+      "projectPath": "C:\\Users\\fmanx\\Desktop\\WMS\\m7\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj",
       "packagesPath": "C:\\Users\\fmanx\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\fmanx\\Desktop\\WMS\\m7d19\\Warehouse-MS\\BackEnd\\Warehouse-MS\\obj\\",
+      "outputPath": "C:\\Users\\fmanx\\Desktop\\WMS\\m7\\Warehouse-MS\\BackEnd\\Warehouse-MS\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\fmanx\\AppData\\Roaming\\NuGet\\NuGet.Config",

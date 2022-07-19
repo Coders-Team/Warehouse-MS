@@ -33,6 +33,10 @@ namespace Warehouse_MS.Controllers
         public async Task<ActionResult<Transaction>> GetTransaction(int id)
         {
             Transaction transaction = await _transaction.GetTransaction(id);
+            if (transaction == null)
+            {
+                return NotFound();
+            }
             return Ok(transaction);
         }
 
@@ -40,6 +44,7 @@ namespace Warehouse_MS.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTransaction(int id, Transaction transaction)
         {
+
             if (id != transaction.Id)
             {
                 return BadRequest();
@@ -62,6 +67,11 @@ namespace Warehouse_MS.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTransaction(int id)
         {
+            var transaction = await _transaction.GetTransaction(id);
+            if (transaction == null)
+            {
+                return NotFound();
+            }
             await _transaction.Delete(id);
             return NoContent();
 

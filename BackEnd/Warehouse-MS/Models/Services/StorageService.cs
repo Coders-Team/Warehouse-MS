@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,10 +13,12 @@ namespace Warehouse_MS.Models.Services
     {
 
         private readonly WarehouseDBContext _context;
+        private readonly ITransaction _transaction;
 
-        public StorageService(WarehouseDBContext context)
+        public StorageService(WarehouseDBContext context , ITransaction transaction)
         {
             _context = context;
+            this._transaction = transaction;
         }
 
         public async Task<StorageDto> Create(Storage storage)
@@ -72,6 +75,169 @@ namespace Warehouse_MS.Models.Services
             Storage storage = await _context.Storage.FindAsync(id);
             _context.Entry(storage).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<StorageDto>> GetStoragesbyType(int storageTypeId)
+        {
+            return await _context.Storage.Select(storage => new StorageDto
+            {
+                Id = storage.Id,
+                Name = storage.Name,
+                SizeInUnit = storage.SizeInUnit,
+                LocationInWarehouse = storage.LocationInWarehouse,
+                Description = storage.Description,
+                WarehouseId = storage.WarehouseId,
+                StorageTypeId = storage.StorageTypeId
+            }).Where(x=>x.StorageTypeId== storageTypeId).ToListAsync();
+        }
+
+        public async Task<ProductDto> AddProducteToStorage(ProductDto productDto)
+        {
+            int? newSize = await SizeisOk(productDto.SizeInUnit, productDto.StorageId);
+
+            if (newSize == null)
+            {
+                return null;
+            }
+            Product product= new Product()
+            {
+                Name = productDto.Name,
+                StorageTypeId =await GetStorageTypeId(productDto.StorageId),
+                StorageId= productDto.StorageId,
+                ProductTypeId = productDto.ProductTypeId,
+                Date= productDto.Date,
+                ExpiredDate= productDto.ExpiredDate,
+                SizeInUnit= (int)newSize,
+                Weight= productDto.Weight,
+                BarcodeNum = null,
+                Photo = productDto.Photo, 
+                Description =productDto.Description
+                 
+                
+
+
+            };
+
+            _context.Entry(product).State = EntityState.Added;
+            await _context.SaveChangesAsync();
+
+
+            TransactionDto transactionDto = new TransactionDto
+            {
+                UpdateDate = DateTime.Now,
+                OldLocation = product.Storage.Name,
+                Type = "add",
+                ProductId = product.Id,
+                UpdatedBy = null,
+
+            };
+
+            await _transaction.Create(transactionDto);
+
+
+            return productDto;
+        }
+        /// <summary>
+        /// to get storage type by storageId
+        /// </summary>
+        /// <param name="storageId"></param>
+        /// <returns></returns>
+        private async Task<int> GetStorageTypeId(int storageId)
+        {
+           Storage storage = await _context.Storage.FindAsync(storageId);
+
+            return storage.StorageTypeId;
+        }
+
+        /// <summary>
+        ///  to chech if the total product size is less than storage
+        /// </summary>
+        /// <param name="sizeInUnit"></param>
+        /// <param name="storageId"></param>
+        /// <returns></returns>
+        private async Task<int?> SizeisOk(int sizeInUnit, int storageId)
+        {
+            Storage storage = await _context.Storage.FindAsync(storageId);
+            if (storage == null)
+            {
+                return null;
+            }
+
+            int totalStze = 0;
+            foreach (Product product in storage.Products)
+            {
+                totalStze += product.SizeInUnit;
+
+            }
+            if (totalStze + sizeInUnit > storage.SizeInUnit)
+            {
+                return null;
+            }
+            return sizeInUnit;
+
+
+
+        }
+
+        public async Task RemoveProductStorage(int productId)
+        {
+            Product product= await _context.Product.FirstOrDefaultAsync(c => c.Id == productId);
+            if (product == null)
+            { return; }
+
+                _context.Entry(product).State = EntityState.Deleted;
+
+                await _context.SaveChangesAsync();
+
+            TransactionDto transactionDto = new TransactionDto
+            {
+                 UpdateDate = DateTime.Now,
+                 OldLocation = product.Storage.Name,
+                 Type= "put-away",
+                 ProductId = product.Id,
+                  UpdatedBy =null,
+
+            };
+
+               await _transaction.Create(transactionDto);
+            
+        }
+
+        public async Task<Product> UpdateProduct(int id, ProductRelocateDto productRelocateDto)
+        {
+           Product product= await _context.Product.FirstOrDefaultAsync(c => c.Id == productRelocateDto.ProductId);
+            if (product == null)
+            {
+                return null;
+            }
+
+            int? newSize = await SizeisOk(product.SizeInUnit, productRelocateDto.NewStorageId);
+
+            if (newSize == null)
+            {
+                return null;
+            }
+            product.StorageId = productRelocateDto.NewStorageId;
+
+            _context.Entry(product).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            TransactionDto transactionDto = new TransactionDto
+            {
+                UpdateDate = DateTime.Now,
+                OldLocation = product.Storage.Name,
+                Type = "Relocate",
+                ProductId = product.Id,
+                UpdatedBy = null,
+
+            };
+
+            await _transaction.Create(transactionDto);
+
+
+
+            return product;
+
         }
     }
 }

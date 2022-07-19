@@ -64,8 +64,32 @@ namespace Warehouse_MS.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteWarehouse(int id)
         {
+            var warehouse = await _warehouse.GetWarehouse(id);
+            if (warehouse == null)
+            {
+                return NotFound();
+            }
             await _warehouse.Delete(id);
             return NoContent();
         }
+
+
+
+        // POST: api/Warehouse/AddStorage
+        [HttpPost("AddStorage")]
+        public async Task<ActionResult<Storage>> AddStorageToWarehouse(StorageDto storageDto)
+        {
+            Storage newStorage = await _warehouse.AddStorageToWarehouse(storageDto);
+
+            if (newStorage == null)
+            {
+                return BadRequest("can NoT create new Storage");
+            }
+
+
+            return Ok(newStorage);
+        }
+
+
     }
 }
