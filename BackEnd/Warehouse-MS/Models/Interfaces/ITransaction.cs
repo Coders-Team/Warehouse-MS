@@ -1,11 +1,11 @@
-﻿using FastMarket.Models.DTO;
+﻿using Warehouse_MS.Models.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Warehouse_MS.Models;
 
-namespace FastMarket.Models.Interfaces
+namespace Warehouse_MS.Models.Interfaces
 {
     public interface ITransaction
     {

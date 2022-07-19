@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Warehouse_MS.Models;
 
-namespace FastMarket.Models.Interfaces
+namespace Warehouse_MS.Models.Interfaces
 {
     public interface  IStorageType
     {
