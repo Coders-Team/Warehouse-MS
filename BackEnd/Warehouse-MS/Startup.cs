@@ -1,5 +1,5 @@
-using FastMarket.Models.Interfaces;
-using FastMarket.Models.Services;
+using Warehouse_MS.Models.Interfaces;
+using Warehouse_MS.Models.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;

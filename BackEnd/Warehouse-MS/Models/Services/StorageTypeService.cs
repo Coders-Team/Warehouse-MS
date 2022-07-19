@@ -1,11 +1,11 @@
-﻿using FastMarket.Models.Interfaces;
+﻿using Warehouse_MS.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Warehouse_MS.Data;
 using Warehouse_MS.Models;
 
-namespace FastMarket.Models.Services
+namespace Warehouse_MS.Models.Services
 {
     public class StorageTypeService : IStorageType
     {

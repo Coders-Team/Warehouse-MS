@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\HP\\Source\\Repos\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj": {}
+    "C:\\Users\\fmanx\\Desktop\\WMS\\m7d19\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj": {}
   },
   "projects": {
-    "C:\\Users\\HP\\Source\\Repos\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj": {
+    "C:\\Users\\fmanx\\Desktop\\WMS\\m7d19\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\HP\\Source\\Repos\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj",
+        "projectUniqueName": "C:\\Users\\fmanx\\Desktop\\WMS\\m7d19\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj",
         "projectName": "Warehouse-MS",
-        "projectPath": "C:\\Users\\HP\\Source\\Repos\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj",
-        "packagesPath": "C:\\Users\\HP\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\HP\\Source\\Repos\\Warehouse-MS\\BackEnd\\Warehouse-MS\\obj\\",
+        "projectPath": "C:\\Users\\fmanx\\Desktop\\WMS\\m7d19\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj",
+        "packagesPath": "C:\\Users\\fmanx\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\fmanx\\Desktop\\WMS\\m7d19\\Warehouse-MS\\BackEnd\\Warehouse-MS\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\HP\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\fmanx\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -77,6 +77,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[5.0.14, 5.0.14]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -85,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }
