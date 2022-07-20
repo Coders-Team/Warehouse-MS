@@ -1,4 +1,6 @@
-﻿namespace Warehouse_MS.Models.DTO
+﻿using System.Collections.Generic;
+
+namespace Warehouse_MS.Models.DTO
 {
     public class StorageDto
     {
@@ -9,5 +11,7 @@
         public string Description { get; set; }
         public int WarehouseId { get; set; }
         public int StorageTypeId { get; set; }
+        public List<ProductDto2> Products { get; set; }
+
     }
 }

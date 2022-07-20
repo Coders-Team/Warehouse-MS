@@ -26,8 +26,8 @@ namespace Warehouse_MS.Models.Interfaces
 
 
 
-        public Task<ProductDto> AddProducteToStorage(ProductDto productDto);
-        public Task RemoveProductStorage(int productId);
+        public Task<Product> AddProducteToStorage(ProductDto productDto);
+        public Task<Product> RemoveProductStorage(int productId);
 
         Task<Product> UpdateProduct(int id, ProductRelocateDto productRelocateDto);
 

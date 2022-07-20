@@ -71,5 +71,46 @@ namespace Warehouse_MS.Controllers
             await _storage.Delete(id);
             return NoContent();
         }
+
+
+
+
+        // PUT: api/Storage/Product/id
+        [HttpPut("/Product/{id}")]
+    public async Task<ActionResult<Product>> UpdateProduct(int id, ProductRelocateDto productRelocateDto)
+    {
+        var modifiedProduct = await _storage.UpdateProduct(id, productRelocateDto);
+
+        if (modifiedProduct == null )
+        {
+            return BadRequest("can NOT update Product ,Please try again");
+        }
+        return Ok(modifiedProduct);
     }
+
+        // POST: api/Storage/AddProduct
+        [HttpPost("AddProduct")]
+    public async Task<ActionResult<Product>> AddProducteToStorage(ProductDto productDto)
+    {
+        Product newproduct= await _storage.AddProducteToStorage(productDto);
+            if (newproduct == null)
+            {
+                return BadRequest("can NOT Add Product to this storage,Please try again");
+            }
+            return Ok(newproduct);
+    }
+
+        // DELETE: api/Storage/RemoveProduct/id
+        [HttpDelete("RemoveProduct/{ProductId}")]
+    public async Task<IActionResult> RemoveProductStorage(int ProductId)
+    {
+     Product Product = await _storage.RemoveProductStorage(ProductId);
+       if (Product == null)
+        {
+            return BadRequest("No Product with this id");
+        }
+        
+        return NoContent();
+    }
+}
 }

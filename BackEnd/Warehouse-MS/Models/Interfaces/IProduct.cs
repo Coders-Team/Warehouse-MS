@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Warehouse_MS.Models.DTO;
 
 namespace Warehouse_MS.Models.Interfaces
 {
     public interface IProduct
     {
-        Task<Product> Create(Product product);
+        Task<ProductDto> Create(ProductDto productDto);
         Task<Product> GetProduct(int Id);
         Task<List<Product>> GetProducts();
         Task<Product> UpdateProduct(int Id, Product product);
@@ -19,7 +20,7 @@ namespace Warehouse_MS.Models.Interfaces
 
         Task<List<Product>> FilterByProductType(string input);
         Task<List<Product>> FilterByStorageType(string input);
-        Task<Product> GenerateBarCode(int Id);
+        Task<string> GenerateBarCode();
         Task<Product> GetByBarCode(string barcode);
 
         Task<List<Product>> Packing(int id, int newWeight, int newSize);

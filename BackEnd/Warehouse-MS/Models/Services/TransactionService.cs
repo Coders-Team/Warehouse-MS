@@ -6,16 +6,21 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Warehouse_MS.Data;
 using Warehouse_MS.Models;
+using System;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace Warehouse_MS.Models.Services
 {
     public class TransactionService : ITransaction
     {
         private readonly WarehouseDBContext _context;
+        private readonly SignInManager<ApplicationUser> _signInMngr;
 
-        public TransactionService(WarehouseDBContext context)
+        public TransactionService(WarehouseDBContext context, SignInManager<ApplicationUser> SignInMngr)
         {
             _context = context;
+            _signInMngr = SignInMngr;
         }
         // method to create new Transaction
 
@@ -24,12 +29,11 @@ namespace Warehouse_MS.Models.Services
 
             Transaction transaction = new Transaction()
             {
-                Type = transactionDto.Type,
-                Date = transactionDto.Date,
-                UpdateDate = transactionDto.UpdateDate,
-                OldLocation = transactionDto.OldLocation,
                 ProductId = transactionDto.ProductId,
-                UpdatedBy = transactionDto.UpdatedBy,
+                Type = transactionDto.Type,
+                OldLocation = transactionDto.OldLocation,
+                UpdateDate = DateTime.Now,
+                UpdatedBy = null// _signInMngr.UserManager.GetUserAsync(ClaimsPrincipal)               ,
             };
             _context.Entry(transaction).State = EntityState.Added;
             await _context.SaveChangesAsync();

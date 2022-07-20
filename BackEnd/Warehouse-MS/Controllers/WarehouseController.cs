@@ -54,7 +54,7 @@ namespace Warehouse_MS.Controllers
 
         // POST: api/Warehouse
         [HttpPost]
-        public async Task<ActionResult<WarehouseDto>> PostCategory(Warehouse warehouse)
+        public async Task<ActionResult<WarehouseDto>> PostWarehouse(Warehouse warehouse)
         {
             WarehouseDto newWarehouse = await _warehouse.Create(warehouse);
             return Ok(newWarehouse);
