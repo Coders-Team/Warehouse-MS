@@ -10,7 +10,8 @@ namespace Warehouse_MS.Models.DTO
 
         //  This is the Transaction DTO for get request 
         public string Type { get; set; }
-        public DateTime Date { get; set; }
+        public string NewLocation { get; set; }
+
         public string OldLocation { get; set; }
         public DateTime UpdateDate { get; set; }
 

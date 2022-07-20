@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Warehouse_MS.Data;
+using Warehouse_MS.Models.DTO;
 using Warehouse_MS.Models.Interfaces;
 
 namespace Warehouse_MS.Models.Services
@@ -17,12 +18,27 @@ namespace Warehouse_MS.Models.Services
             _context = context;
        }
 
-    public async Task<Product> Create(Product product)
-    {
+    public async Task<ProductDto> Create(ProductDto productDto) { 
+
+            Product product = new Product() {
+                Name = productDto.Name,
+                ProductTypeId = productDto.ProductTypeId,
+                StorageTypeId = productDto.StorageTypeId,
+                StorageId = productDto.StorageId,
+                Weight =productDto.Weight,
+                Date=productDto.Date,
+                ExpiredDate = productDto.ExpiredDate,
+                BarcodeNum = GenerateBarCode().Result,
+                SizeInUnit =productDto.SizeInUnit,
+                Photo = productDto.Photo, 
+                Description = productDto.Description
+            };
+
+            productDto.BarcodeNum = product.BarcodeNum;
             _context.Entry(product).State = EntityState.Added;
 
             await _context.SaveChangesAsync();
-            return product;
+            return productDto;
 
     }
 
@@ -141,10 +157,33 @@ namespace Warehouse_MS.Models.Services
         }
 
 
-        public async Task<Product> GenerateBarCode(int Id)
-        {
+        //public async Task<Product> GenerateBarCode(int Id)
+        //{
 
-            Product product = await GetProduct(Id);
+        //    Product product = await GetProduct(Id);
+        //    Random rand = new Random();
+        //    int num = rand.Next(100000, 999999);
+        //    string barcode = "BAR" + num;
+
+        //    List<Product> products = await GetProducts();
+
+        //    var barcodes = products.Select(p => p.BarcodeNum);
+
+        //    while (barcodes.Contains(barcode))
+        //    {
+        //        num = rand.Next(100000, 999999);
+        //        barcode = "BAR" + num;
+
+        //    }
+
+        //    product.BarcodeNum = barcode;
+
+        //    Product updatedProduct = await UpdateProduct(Id, product);
+
+        //    return updatedProduct;
+        //}
+        public async Task<string> GenerateBarCode()
+        {
 
             Random rand = new Random();
             int num = rand.Next(100000, 999999);
@@ -160,27 +199,26 @@ namespace Warehouse_MS.Models.Services
                 barcode = "BAR" + num;
 
             }
-
-            product.BarcodeNum = barcode;
-
-            Product updatedProduct = await UpdateProduct(Id, product);
-
-            return updatedProduct;
+            return barcode;
         }
-
 
         public async Task<Product> GetByBarCode(string barcode)
         {
-            // Product product = await _context.Product.FindAsync(barcode);
-            List<Product> products = await GetProducts();
-            Product product = null;
-            foreach (Product item in products)
+             Product product = await _context.Product.FirstOrDefaultAsync(x=>x.BarcodeNum== barcode);
+            if (product == null)
             {
-                if (item.BarcodeNum == barcode)
-                {
-                    product = item;
-                }
+                return null;
             }
+
+            //List<Product> products = await GetProducts();
+            //Product product = null;
+            //foreach (Product item in products)
+            //{
+            //    if (item.BarcodeNum == barcode)
+            //    {
+            //        product = item;
+            //    }
+            //}
 
             return product;
         }
@@ -189,17 +227,22 @@ namespace Warehouse_MS.Models.Services
         {
             Product product = await GetProduct(id);
 
+            if (product.Weight < newWeight || product.SizeInUnit < newSize)
+            {
+                return null;
+            }
+
             product.Weight = product.Weight - newWeight;
             product.SizeInUnit = product.SizeInUnit - newSize;
 
             await UpdateProduct(id, product);
 
-            Product newProduct = new Product { Photo = product.Photo, Name = product.Name + " After packing", SizeInUnit = newSize, Weight = newWeight, BarcodeNum = null, Date = product.Date, ExpiredDate = product.ExpiredDate, Description = product.Description, ProductType = product.ProductType, ProductTypeId = product.ProductTypeId, Storage = product.Storage, StorageId = product.StorageId, StorageType = product.StorageType, StorageTypeId = product.StorageTypeId };
+            ProductDto newProduct = new ProductDto { Photo = product.Photo, Name = product.Name + " After packing", SizeInUnit = newSize, Weight = newWeight, Date = product.Date, ExpiredDate = product.ExpiredDate, Description = product.Description,  ProductTypeId = product.ProductTypeId, StorageId = product.StorageId, StorageTypeId = product.StorageTypeId };
             await Create(newProduct);
 
             List<Product> products = new List<Product>();
             products.Add(product);
-            products.Add(newProduct);
+            products.Add(GetByBarCode(newProduct.BarcodeNum).Result);
 
             return products;
 

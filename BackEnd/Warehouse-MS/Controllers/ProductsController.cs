@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Warehouse_MS.Data;
 using Warehouse_MS.Models;
+using Warehouse_MS.Models.DTO;
 using Warehouse_MS.Models.Interfaces;
 
 namespace Warehouse_MS.Controllers
@@ -35,6 +36,10 @@ namespace Warehouse_MS.Controllers
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
             Product product = await _product.GetProduct(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
             return Ok(product);
         }
 
@@ -55,9 +60,9 @@ namespace Warehouse_MS.Controllers
         // POST: api/Products
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<ActionResult<ProductDto>> PostProduct(ProductDto product)
         {
-            Product newProduct = await _product.Create(product);
+            ProductDto newProduct = await _product.Create(product);
             return Ok(newProduct);
 
         }
@@ -66,6 +71,12 @@ namespace Warehouse_MS.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
+
+            Product product = await _product.GetProduct(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
             await _product.DeleteProduct(id);
             return NoContent();
 
@@ -122,19 +133,23 @@ namespace Warehouse_MS.Controllers
             return Ok(products);
         }
 
-        // GET: api/Products/GenerateBarCode/1
-        [HttpGet("GenerateBarCode/{id}")]
-        public async Task<ActionResult<Product>> GenerateBarCode(int id)
+        // GET: api/Products/GenerateBarCode/
+        [HttpGet("GenerateBarCode")]
+        public async Task<ActionResult<string>> GenerateBarCode()
         {
-            var product = await _product.GenerateBarCode(id);
-            return Ok(product);
+            var BarCode = await _product.GenerateBarCode();
+            return Ok(BarCode);
         }
 
-        // GET: api/Products/GetByBarCode/BAR300596
+        // GET: api/Products/GetByBarCode/BAR676197
         [HttpGet("GetByBarCode/{barcode}")]
         public async Task<ActionResult<Product>> GetByBarCode(string barcode)
         {
             var product = await _product.GetByBarCode(barcode);
+            if (product == null)
+            {
+                return NotFound("Product NOt found");
+            }
             return Ok(product);
         }
 
@@ -143,7 +158,14 @@ namespace Warehouse_MS.Controllers
         [HttpGet("Packing/{id}/{newWeight}/{newSize}")]
         public async Task<ActionResult<IEnumerable<Product>>> Packing(int id, int newWeight, int newSize)
         {
+
             var products = await _product.Packing(id, newWeight, newSize);
+
+            if (products == null)
+            {
+                return BadRequest("can NOT divided");
+            }
+
             return Ok(products);
         }
 

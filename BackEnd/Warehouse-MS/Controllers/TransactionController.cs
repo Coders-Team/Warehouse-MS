@@ -20,7 +20,7 @@ namespace Warehouse_MS.Controllers
             this._transaction = transaction;
         }
 
-        // GET: api/Transactions
+        // GET: api/Transaction
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Transaction>>> GeTransactions()
         {

@@ -44,7 +44,7 @@ namespace Warehouse_MS.Models.Services
                 SizeInUnit = warehouse.SizeInUnit,
                 Location = warehouse .Location,
                 Description = warehouse.Description,
-                UserId = warehouse.UserId,
+                UserId=warehouse.UserId,
                 Storages = warehouse.Storages.Select(s => new StorageDto
                 {
                     Id = s.Id,
@@ -101,7 +101,7 @@ namespace Warehouse_MS.Models.Services
 
         public async Task<Storage> AddStorageToWarehouse(StorageDto storageDto)
         {
-            var newSize = SizeisOk(storageDto.SizeInUnit, storageDto.WarehouseId).Result;
+            int? newSize = SizeisOk(storageDto.SizeInUnit, storageDto.WarehouseId).Result;
 
             if (newSize== null)
             {
@@ -113,7 +113,7 @@ namespace Warehouse_MS.Models.Services
                 Name = storageDto.Name,
                 StorageTypeId = storageDto.StorageTypeId,
                 WarehouseId = storageDto.WarehouseId,
-                SizeInUnit = (int)SizeisOk(storageDto.SizeInUnit , storageDto.WarehouseId).Result,
+                SizeInUnit =(int) newSize,
                 LocationInWarehouse = storageDto.LocationInWarehouse,
                 Description = storageDto.Description
 

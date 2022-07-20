@@ -7,7 +7,7 @@ namespace Warehouse_MS.Models
     {
         public int Id { get; set; }
         public string Type { get; set; }
-        public DateTime Date { get; set; }
+        public string newLocation { get; set; }
         public string OldLocation { get; set; }
         public DateTime UpdateDate { get; set; }
         
