@@ -72,5 +72,81 @@ namespace Warehouse_MS.Controllers
         }
 
 
+        // GET: api/Products/SortByDate/false
+        [HttpGet("SortByDate/{flag}")]
+        public async Task<ActionResult<IEnumerable<Product>>> SortByDate(bool flag)
+        {
+            var products = await _product.SortByDate(flag);
+            return Ok(products);
+        }
+
+        // GET: api/Products/SortByExpirationDate/true
+        [HttpGet("SortByExpirationDate/{flag}")]
+        public async Task<ActionResult<IEnumerable<Product>>> SortByExpirationDate(bool flag)
+        {
+            var products = await _product.SortByExpirationDate(flag);
+            return Ok(products);
+        }
+
+        // GET: api/Products/SortByWeight/true
+        [HttpGet("SortByWeight/{flag}")]
+        public async Task<ActionResult<IEnumerable<Product>>> SortByWeight(bool flag)
+        {
+            var products = await _product.SortByWeight(flag);
+            return Ok(products);
+        }
+
+        // GET: api/Products/SortBySize/true
+        [HttpGet("SortBySize/{flag}")]
+        public async Task<ActionResult<IEnumerable<Product>>> SortBySize(bool flag)
+        {
+            var products = await _product.SortBySize(flag);
+            return Ok(products);
+        }
+
+
+        // GET: api/Products/FilterByProductType/food
+        [HttpGet("FilterByProductType/{input}")]
+        public async Task<ActionResult<IEnumerable<Product>>> FilterByProductType(string input)
+        {
+            var products = await _product.FilterByProductType(input);
+            return Ok(products);
+        }
+
+
+        // GET: api/Products/FilterByStorageType/on shelves
+        [HttpGet("FilterByStorageType/{input}")]
+        public async Task<ActionResult<IEnumerable<Product>>> FilterByStorageType(string input)
+        {
+            var products = await _product.FilterByStorageType(input);
+            return Ok(products);
+        }
+
+        // GET: api/Products/GenerateBarCode/1
+        [HttpGet("GenerateBarCode/{id}")]
+        public async Task<ActionResult<Product>> GenerateBarCode(int id)
+        {
+            var product = await _product.GenerateBarCode(id);
+            return Ok(product);
+        }
+
+        // GET: api/Products/GetByBarCode/BAR300596
+        [HttpGet("GetByBarCode/{barcode}")]
+        public async Task<ActionResult<Product>> GetByBarCode(string barcode)
+        {
+            var product = await _product.GetByBarCode(barcode);
+            return Ok(product);
+        }
+
+
+        // GET: api/Products/Packing/1/20/1
+        [HttpGet("Packing/{id}/{newWeight}/{newSize}")]
+        public async Task<ActionResult<IEnumerable<Product>>> Packing(int id, int newWeight, int newSize)
+        {
+            var products = await _product.Packing(id, newWeight, newSize);
+            return Ok(products);
+        }
+
+
     }
 }

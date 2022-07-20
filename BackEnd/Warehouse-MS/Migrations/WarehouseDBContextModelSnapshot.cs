@@ -282,80 +282,80 @@ namespace Warehouse_MS.Migrations
                         new
                         {
                             Id = 2,
-                            Date = new DateTime(2022, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2020, 7, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = " ....",
-                            ExpiredDate = new DateTime(2024, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpiredDate = new DateTime(2022, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Product2",
                             ProductTypeId = 4,
                             SizeInUnit = 3,
                             StorageId = 1,
                             StorageTypeId = 1,
-                            Weight = 100.0
+                            Weight = 200.0
                         },
                         new
                         {
                             Id = 3,
-                            Date = new DateTime(2022, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2021, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = " ....",
-                            ExpiredDate = new DateTime(2024, 5, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpiredDate = new DateTime(2023, 5, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Product3",
                             ProductTypeId = 1,
                             SizeInUnit = 5,
                             StorageId = 1,
                             StorageTypeId = 1,
-                            Weight = 100.0
+                            Weight = 150.0
                         },
                         new
                         {
                             Id = 4,
-                            Date = new DateTime(2022, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2019, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = " ....",
-                            ExpiredDate = new DateTime(2024, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpiredDate = new DateTime(2021, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Product4",
                             ProductTypeId = 2,
                             SizeInUnit = 1,
                             StorageId = 2,
                             StorageTypeId = 2,
-                            Weight = 100.0
+                            Weight = 104.0
                         },
                         new
                         {
                             Id = 5,
-                            Date = new DateTime(2022, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2015, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = " ....",
-                            ExpiredDate = new DateTime(2025, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpiredDate = new DateTime(2017, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Product5",
                             ProductTypeId = 1,
                             SizeInUnit = 10,
                             StorageId = 2,
                             StorageTypeId = 2,
-                            Weight = 100.0
+                            Weight = 430.0
                         },
                         new
                         {
                             Id = 6,
-                            Date = new DateTime(2022, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2016, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = " ....",
-                            ExpiredDate = new DateTime(2023, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpiredDate = new DateTime(2018, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Product6",
                             ProductTypeId = 3,
                             SizeInUnit = 2,
                             StorageId = 3,
                             StorageTypeId = 3,
-                            Weight = 100.0
+                            Weight = 110.0
                         },
                         new
                         {
                             Id = 7,
-                            Date = new DateTime(2022, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Date = new DateTime(2010, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = " ....",
-                            ExpiredDate = new DateTime(2023, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpiredDate = new DateTime(2012, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Product7",
                             ProductTypeId = 4,
                             SizeInUnit = 15,
                             StorageId = 5,
                             StorageTypeId = 4,
-                            Weight = 100.0
+                            Weight = 300.0
                         });
                 });
 
@@ -710,7 +710,7 @@ namespace Warehouse_MS.Migrations
                         .IsRequired();
 
                     b.HasOne("Warehouse_MS.Models.Storage", "Storage")
-                        .WithMany()
+                        .WithMany("Products")
                         .HasForeignKey("StorageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -779,6 +779,11 @@ namespace Warehouse_MS.Migrations
                 });
 
             modelBuilder.Entity("Warehouse_MS.Models.ProductType", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Warehouse_MS.Models.Storage", b =>
                 {
                     b.Navigation("Products");
                 });
