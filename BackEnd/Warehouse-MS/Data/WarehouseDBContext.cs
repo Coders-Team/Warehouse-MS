@@ -56,18 +56,18 @@ namespace Warehouse_MS.Data
                 
                 );
             modelBuilder.Entity<Product>().HasData(
-                 new Product { Id = 1, Name = "Product1", Date= new DateTime(2022, 5, 2),ExpiredDate = new DateTime(2024, 5, 26), Weight = 100,  StorageTypeId = 1,  StorageId =1 , ProductTypeId=1 , SizeInUnit = 5,BarcodeNum = null , Photo = null, Description = " ...." },
-                 new Product { Id = 2, Name = "Product2", Date= new DateTime(2022, 5, 2),ExpiredDate = new DateTime(2024, 5, 15), Weight = 100,  StorageTypeId = 1,  StorageId =1 , ProductTypeId=4 , SizeInUnit = 3,BarcodeNum = null , Photo = null, Description = " ...." },
-                 new Product { Id = 3, Name = "Product3", Date= new DateTime(2022, 5, 2),ExpiredDate = new DateTime(2024, 5, 25), Weight = 100,  StorageTypeId = 1,  StorageId =1 , ProductTypeId=1 , SizeInUnit = 5,BarcodeNum = null , Photo = null, Description = " ...." },
-                 new Product { Id = 4, Name = "Product4", Date= new DateTime(2022, 5, 2),ExpiredDate = new DateTime(2024, 5, 24), Weight = 100,  StorageTypeId = 2,  StorageId =2 , ProductTypeId=2 , SizeInUnit = 1,BarcodeNum = null , Photo = null, Description = " ...." },
-                 new Product { Id = 5, Name = "Product5", Date= new DateTime(2022, 5, 2),ExpiredDate = new DateTime(2025, 5, 5), Weight = 100,  StorageTypeId = 2,  StorageId =2 , ProductTypeId=1 , SizeInUnit = 10,BarcodeNum = null , Photo = null, Description = " ...." },
-                 new Product { Id = 6, Name = "Product6", Date= new DateTime(2022, 5, 2),ExpiredDate = new DateTime(2023, 5, 4), Weight = 100,  StorageTypeId = 3,  StorageId =3 , ProductTypeId=3 , SizeInUnit = 2,BarcodeNum = null , Photo = null, Description = " ...." },
-                 new Product { Id = 7, Name = "Product7", Date= new DateTime(2022, 5, 2),ExpiredDate = new DateTime(2023, 5, 1), Weight = 100,  StorageTypeId = 4,  StorageId =5 , ProductTypeId=4 , SizeInUnit = 15,BarcodeNum = null , Photo = null, Description = " ...." }
+                  new Product { Id = 1, Name = "Product1", Date = new DateTime(2022, 5, 2), ExpiredDate = new DateTime(2024, 5, 26), Weight = 100, StorageTypeId = 1, StorageId = 1, ProductTypeId = 1, SizeInUnit = 5, BarcodeNum = null, Photo = null, Description = " ...." },
+                  new Product { Id = 2, Name = "Product2", Date = new DateTime(2020, 7, 2), ExpiredDate = new DateTime(2022, 5, 15), Weight = 200, StorageTypeId = 1, StorageId = 1, ProductTypeId = 4, SizeInUnit = 3, BarcodeNum = null, Photo = null, Description = " ...." },
+                  new Product { Id = 3, Name = "Product3", Date = new DateTime(2021, 5, 2), ExpiredDate = new DateTime(2023, 5, 25), Weight = 150, StorageTypeId = 1, StorageId = 1, ProductTypeId = 1, SizeInUnit = 5, BarcodeNum = null, Photo = null, Description = " ...." },
+                  new Product { Id = 4, Name = "Product4", Date = new DateTime(2019, 5, 2), ExpiredDate = new DateTime(2021, 5, 24), Weight = 104, StorageTypeId = 2, StorageId = 2, ProductTypeId = 2, SizeInUnit = 1, BarcodeNum = null, Photo = null, Description = " ...." },
+                  new Product { Id = 5, Name = "Product5", Date = new DateTime(2015, 5, 2), ExpiredDate = new DateTime(2017, 5, 5), Weight = 430, StorageTypeId = 2, StorageId = 2, ProductTypeId = 1, SizeInUnit = 10, BarcodeNum = null, Photo = null, Description = " ...." },
+                  new Product { Id = 6, Name = "Product6", Date = new DateTime(2016, 5, 2), ExpiredDate = new DateTime(2018, 5, 4), Weight = 110, StorageTypeId = 3, StorageId = 3, ProductTypeId = 3, SizeInUnit = 2, BarcodeNum = null, Photo = null, Description = " ...." },
+                  new Product { Id = 7, Name = "Product7", Date = new DateTime(2010, 5, 2), ExpiredDate = new DateTime(2012, 5, 1), Weight = 300, StorageTypeId = 4, StorageId = 5, ProductTypeId = 4, SizeInUnit = 15, BarcodeNum = null, Photo = null, Description = " ...." }
 
 
 
-                );
-         //   modelBuilder.Entity<Transaction>().HasData();
+                 );
+            //   modelBuilder.Entity<Transaction>().HasData();
 
 
         }
