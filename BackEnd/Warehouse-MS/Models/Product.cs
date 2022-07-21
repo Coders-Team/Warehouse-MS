@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Warehouse_MS.Models
@@ -29,5 +30,10 @@ namespace Warehouse_MS.Models
         public ProductType ProductType { get; set; }
         [ForeignKey("ProductType")]
         public int ProductTypeId { get; set; }
+
+
+
+        public List<Transaction> Transaction { get; set; }
+
     }
 }

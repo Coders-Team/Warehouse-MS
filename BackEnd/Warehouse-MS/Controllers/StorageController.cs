@@ -76,7 +76,7 @@ namespace Warehouse_MS.Controllers
 
 
         // PUT: api/Storage/Product/id
-        [HttpPut("/Product/{id}")]
+        [HttpPut("Product/{id}")]
     public async Task<ActionResult<Product>> UpdateProduct(int id, ProductRelocateDto productRelocateDto)
     {
         var modifiedProduct = await _storage.UpdateProduct(id, productRelocateDto);

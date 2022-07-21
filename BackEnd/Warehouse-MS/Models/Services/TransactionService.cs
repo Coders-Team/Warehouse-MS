@@ -31,9 +31,10 @@ namespace Warehouse_MS.Models.Services
             {
                 ProductId = transactionDto.ProductId,
                 Type = transactionDto.Type,
+                newLocation = transactionDto.NewLocation,
                 OldLocation = transactionDto.OldLocation,
                 UpdateDate = DateTime.Now,
-                UpdatedBy = null// _signInMngr.UserManager.GetUserAsync(ClaimsPrincipal)               ,
+                UpdatedBy = transactionDto.UpdatedBy
             };
             _context.Entry(transaction).State = EntityState.Added;
             await _context.SaveChangesAsync();
