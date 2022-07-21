@@ -24,6 +24,19 @@ namespace Warehouse_MS.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            // modelBuilder.Entity<Transaction>().HasMany(a=> a.Product)
+            modelBuilder.Entity<Transaction>()
+         .HasOne(b => b.Product)
+         .WithMany(a => a.Transaction)
+         .OnDelete(DeleteBehavior.NoAction);
+
+            //modelBuilder.Entity<Product>()
+            //.HasOne(b => b.)
+            //.WithMany(a => a.)
+            //.OnDelete(DeleteBehavior.NoAction);
+
+
+
 
             modelBuilder.Entity<Warehouse>().HasData(
                 new Warehouse { Id = 1, Name = "Warehouse1", Location = "Amman", SizeInUnit = 100,  Description= " ...."},

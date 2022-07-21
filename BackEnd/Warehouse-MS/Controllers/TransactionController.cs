@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Warehouse_MS.Models;
 using Warehouse_MS.Models.DTO;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace Warehouse_MS.Controllers
 {
@@ -14,10 +16,12 @@ namespace Warehouse_MS.Controllers
     public class TransactionController : Controller
     {
         private readonly ITransaction _transaction;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public TransactionController(ITransaction transaction)
+        public TransactionController(ITransaction transaction,UserManager<ApplicationUser> userManager)
         {
             this._transaction = transaction;
+            this._userManager = userManager;
         }
 
         // GET: api/Transaction
@@ -58,6 +62,8 @@ namespace Warehouse_MS.Controllers
         [HttpPost]
         public async Task<ActionResult<TransactionDto>> PostTransaction(TransactionDto transactionDto)
         {
+            transactionDto.UpdatedBy = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             TransactionDto newTransaction = await _transaction.Create(transactionDto);
             return Ok(newTransaction);
 

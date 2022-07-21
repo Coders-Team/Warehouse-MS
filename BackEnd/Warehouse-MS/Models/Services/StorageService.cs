@@ -16,7 +16,7 @@ namespace Warehouse_MS.Models.Services
         private readonly ITransaction _transaction;
         private readonly IProduct _product;
 
-        public StorageService(WarehouseDBContext context , ITransaction transaction ,IProduct product)
+        public StorageService(WarehouseDBContext context, ITransaction transaction, IProduct product)
         {
             _context = context;
             this._transaction = transaction;
@@ -48,19 +48,20 @@ namespace Warehouse_MS.Models.Services
                 Description = storage.Description,
                 WarehouseId = storage.WarehouseId,
                 StorageTypeId = storage.StorageTypeId,
-                Products = storage.Products.Select(product => new ProductDto2 {
-                 Id = product.Id,
-                 Name =product.Name,
-                 SizeInUnit = product.SizeInUnit,
-                 StorageId = product.StorageId,
-                 ProductTypeId=product.ProductTypeId,
-                 StorageTypeId = product.StorageTypeId,
-                 Date = product.Date,
-                 ExpiredDate=product.ExpiredDate,
-                 Weight=product.Weight,
-                 BarcodeNum= product.BarcodeNum,
-                 Photo= product.Photo,
-                 Description = product.Description
+                Products = storage.Products.Select(product => new ProductDto2
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    SizeInUnit = product.SizeInUnit,
+                    StorageId = product.StorageId,
+                    ProductTypeId = product.ProductTypeId,
+                    StorageTypeId = product.StorageTypeId,
+                    Date = product.Date,
+                    ExpiredDate = product.ExpiredDate,
+                    Weight = product.Weight,
+                    BarcodeNum = product.BarcodeNum,
+                    Photo = product.Photo,
+                    Description = product.Description
                 }).ToList()
 
             }).FirstOrDefaultAsync(a => a.Id == id);
@@ -120,7 +121,7 @@ namespace Warehouse_MS.Models.Services
                 Description = storage.Description,
                 WarehouseId = storage.WarehouseId,
                 StorageTypeId = storage.StorageTypeId
-            }).Where(x=>x.StorageTypeId== storageTypeId).ToListAsync();
+            }).Where(x => x.StorageTypeId == storageTypeId).ToListAsync();
         }
 
         public async Task<Product> AddProducteToStorage(ProductDto productDto)
@@ -131,25 +132,25 @@ namespace Warehouse_MS.Models.Services
             {
                 return null;
             }
-            Product product= new Product()
+            Product product = new Product()
             {
                 Name = productDto.Name,
-                StorageTypeId =await GetStorageTypeId(productDto.StorageId),
-                StorageId= productDto.StorageId,
+                StorageTypeId = await GetStorageTypeId(productDto.StorageId),
+                StorageId = productDto.StorageId,
                 ProductTypeId = productDto.ProductTypeId,
-                Date= productDto.Date,
-                ExpiredDate= productDto.ExpiredDate,
-                SizeInUnit= (int)newSize,
-                Weight= productDto.Weight,
+                Date = productDto.Date,
+                ExpiredDate = productDto.ExpiredDate,
+                SizeInUnit = (int)newSize,
+                Weight = productDto.Weight,
                 BarcodeNum = await _product.GenerateBarCode(),
-                Photo = productDto.Photo, 
-                Description =productDto.Description
-                 
-                
+                Photo = productDto.Photo,
+                Description = productDto.Description
+
+
 
 
             };
-            
+
             _context.Entry(product).State = EntityState.Added;
             await _context.SaveChangesAsync();
 
@@ -175,7 +176,7 @@ namespace Warehouse_MS.Models.Services
         /// <returns></returns>
         private async Task<int> GetStorageTypeId(int storageId)
         {
-           Storage storage = await _context.Storage.FindAsync(storageId);
+            Storage storage = await _context.Storage.FindAsync(storageId);
 
             return storage.StorageTypeId;
         }
@@ -195,7 +196,7 @@ namespace Warehouse_MS.Models.Services
             }
 
             int totalStze = 0;
-            if (storage.Products!=null)
+            if (storage.Products != null)
             {
                 foreach (Product product in storage.Products)
                 {
@@ -216,32 +217,32 @@ namespace Warehouse_MS.Models.Services
 
         public async Task<Product> RemoveProductStorage(int productId)
         {
-            Product product= await _context.Product.FirstOrDefaultAsync(c => c.Id == productId);
-            
+            Product product = await _context.Product.FirstOrDefaultAsync(c => c.Id == productId);
+
             if (product == null)
             { return null; }
-            string OldLocation = product.Storage.Name;
-                _context.Entry(product).State = EntityState.Deleted;
+            var OldLocation = await _context.Storage.FindAsync(product.StorageId);
+            _context.Entry(product).State = EntityState.Deleted;
 
-                await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
 
             TransactionDto transactionDto = new TransactionDto
             {
-                OldLocation = OldLocation ,
-                NewLocation = product.Storage.Name,
+                OldLocation = OldLocation.Name,
+                NewLocation = null,
                 Type = "put-away",
-                 ProductId = product.Id,
+                ProductId = productId,
             };
 
-               await _transaction.Create(transactionDto);
+            await _transaction.Create(transactionDto);
 
             return product;
-            
+
         }
 
         public async Task<Product> UpdateProduct(int id, ProductRelocateDto productRelocateDto)
         {
-           Product product= await _context.Product.FirstOrDefaultAsync(c => c.Id == productRelocateDto.ProductId);
+            Product product = await _context.Product.FirstOrDefaultAsync(c => c.Id == productRelocateDto.ProductId);
             if (product == null)
             {
                 return null;
@@ -253,16 +254,17 @@ namespace Warehouse_MS.Models.Services
             {
                 return null;
             }
+            var OldLocation = await _context.Storage.FindAsync(product.StorageId);
             product.StorageId = productRelocateDto.NewStorageId;
-            string OldLocation = product.Storage.Name;
+            var newLocation = await _context.Storage.FindAsync(product.StorageId);
 
             _context.Entry(product).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             TransactionDto transactionDto = new TransactionDto
             {
-                OldLocation = OldLocation,
-                NewLocation = product.Storage.Name,
+                OldLocation = OldLocation.Name,
+                NewLocation = newLocation.Name,
                 Type = "Relocate",
                 ProductId = product.Id,
             };

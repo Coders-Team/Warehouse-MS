@@ -64,6 +64,13 @@ namespace Warehouse_MS
                     Version = "v1",
                 });
             });
+
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.WithOrigins("http://localhost:3000")
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -91,6 +98,8 @@ namespace Warehouse_MS
                           });
                     });
             }
+
+            app.UseCors("MyPolicy");
 
             app.UseRouting();
 
