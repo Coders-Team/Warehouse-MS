@@ -1,63 +1,210 @@
-using System;
+using Microsoft.EntityFrameworkCore;
+using Warehouse_MS.Data;
+using Warehouse_MS.Models;
 using Xunit;
-using Warehouse_MS;
-using System.Threading.Tasks;
-using Warehouse_MS.Models.Services;
-using Warehouse_MSTest;
+using System;
 
-
-namespace Basket_Store_Test
+namespace Warehouse_MSTest
 {
     public class WarehouseDemoUnitTest : Mock
     {
+
+
+
         [Fact]
-        public async Task Test1()
+        public void CanGetProduct()
         {
-            var Warehouse = await CreateAndSaveTestWarehouse();
-            var product = await CreateAndSaveTestProduct();
 
-            var Productservice = new ProductServices(_db);
+            Product product = new Product();
+            product.Name = "Iphone 13";
 
-            // Act
-            await Productservice.FilterByProductType(product.Name);
-
-            // Assert
-            var actualProduct = await Productservice.GetProduct(product.Id);
-
-          //  Assert.Contains(actualProduct.Name, a => a.Id == product.Id);
-
-            // Act
-            await Productservice.DeleteProduct( product.Id);
-
-            // Assert
-            actualProduct = await Productservice.GetProduct(product.Id);
-
-           // Assert.DoesNotContain(actualProduct., a => a.Id == product.Id);
+            Assert.Equal("Iphone 13", product.Name);
         }
         [Fact]
-        public async Task AddandRemoveWarehouse()
+        public void CanSetProduct()
         {
-            var store = await CreateAndSaveTestStorage();
-            var product = await CreateAndSaveTestProduct();
 
+            Product product = new Product()
+            {
+                Name = "Iphone 13",
+                SizeInUnit = 2,
+            };
+            product.Name = "Iphone 13 Pro Max";
 
-            var storage = new WarehouseService(_db);
-
-            // Act
-          //  await storage.AddProducteToStorage(store.Id, product.Id);
-
-            // Assert
-            var actualStorage = await storage.GetWarehouse(store.Id);
-
-            Assert.Contains(actualStorage.Storages, a => a.Id == product.Id);
-
-            // Act
-         //   await storage.Create(product.Id);
-
-            // Assert
-            actualStorage = await storage.GetWarehouse(store.Id);
-
-           // Assert.DoesNotContain(actualStorage.Products, a => a.Id == product.Id);
+            Assert.Equal("Iphone 13 Pro Max", product.Name);
         }
+        [Fact]
+        public async void CrudProductInDB()
+        {
+
+            DbContextOptions<WarehouseDBContext> options =
+            new DbContextOptionsBuilder<WarehouseDBContext>().UseInMemoryDatabase("DbCanSave").Options;
+
+            using (WarehouseDBContext context = new WarehouseDBContext(options))
+            {
+                Product product = new Product();
+                product.Name = "Iphone 13 Pro Max";
+                product.SizeInUnit = 12;
+
+
+                context.Product.Add(product);
+                context.SaveChanges();
+                var productName = await context.Product.FirstOrDefaultAsync(x => x.Name == product.Name);
+
+                Assert.Equal("Iphone 13 Pro Max", productName.Name);
+
+                product.Name = "Update Product";
+                context.Product.Update(product);
+                context.SaveChanges();
+                var updatedProduct = await context.Product.FirstOrDefaultAsync(x => x.Name == product.Name);
+                Assert.Equal("Update Product", updatedProduct.Name);
+
+                context.Product.Remove(product);
+                context.SaveChanges();
+                var deletedProduct = await context.Product.FirstOrDefaultAsync(x => x.Name == product.Name);
+                Assert.True(deletedProduct == null);
+            }
+        }
+
+        [Fact]
+        public void CanGetStorage()
+        {
+            //Arrange
+            Storage storage = new Storage();
+            storage.Name = "Mobiles";
+
+            //Assert
+            Assert.Equal("Mobiles", storage.Name);
+        }
+        [Fact]
+        public void CanSetStorage()
+        {
+            //Arrange
+            Storage Storage = new Storage()
+            {
+                Name = "Mobiles",
+
+            };
+            Storage.Name = "Mobile";
+            //Assert
+            Assert.Equal("Mobile", Storage.Name);
+        }
+        [Fact]
+        public async void CrudStorageInDB()
+        {
+            //Arrange
+            //setup our DB
+            //set values
+
+            DbContextOptions<WarehouseDBContext> options =
+            new DbContextOptionsBuilder<WarehouseDBContext>().UseInMemoryDatabase("DbCanSave").Options;
+
+            //Act
+            using (WarehouseDBContext context = new WarehouseDBContext(options))
+            {
+                Storage Storage = new Storage();
+                Storage.Name = "Test";
+
+
+                ////Act
+
+                context.Storage.Add(Storage);
+                context.SaveChanges();
+
+                var StorageName = await context.Storage.FirstOrDefaultAsync(x => x.Name == Storage.Name);
+
+                //Assert
+                Assert.Equal("Test", StorageName.Name);
+
+                //UPDATE
+                Storage.Name = "Update Storage";
+                context.Storage.Update(Storage);
+                context.SaveChanges();
+
+                var updatedStorage = await context.Storage.FirstOrDefaultAsync(x => x.Name == Storage.Name);
+
+                Assert.Equal("Update Storage", updatedStorage.Name);
+
+                //DELETE
+                context.Storage.Remove(Storage);
+                context.SaveChanges();
+
+                var delete = await context.Storage.FirstOrDefaultAsync(x => x.Name == Storage.Name);
+
+                Assert.True(delete == null);
+            }
+
+        }
+
+        [Fact]
+        public void CanGetWarehous()
+        {
+            //Arrange
+            Warehouse storage = new Warehouse();
+            storage.Name = "Mobiles";
+
+            //Assert
+            Assert.Equal("Mobiles", storage.Name);
+        }
+        [Fact]
+        public void CanSetWarehous()
+        {
+            //Arrange
+            Warehouse Storage = new Warehouse()
+            {
+                Name = "Mobiles",
+
+            };
+            Storage.Name = "Mobile";
+            //Assert
+            Assert.Equal("Mobile", Storage.Name);
+        }
+        [Fact]
+        public async void CrudproductTypeInDB()
+        {
+            //Arrange
+            //setup our DB
+            //set values
+
+            DbContextOptions<WarehouseDBContext> options =
+            new DbContextOptionsBuilder<WarehouseDBContext>().UseInMemoryDatabase("DbCanSave").Options;
+
+            //Act
+            using (WarehouseDBContext context = new WarehouseDBContext(options))
+            {
+                ProductType productType = new ProductType();
+                productType.Name = "Test";
+
+
+                ////Act
+
+                context.ProductType.Add(productType);
+                context.SaveChanges();
+
+                var warehouseName = await context.Storage.FirstOrDefaultAsync(x => x.Name == productType.Name);
+
+                //Assert
+                Assert.Equal("Test", warehouseName.Name);
+
+                //UPDATE
+                productType.Name = "Update ProductType";
+                context.ProductType.Update(productType);
+                context.SaveChanges();
+
+                var updatedwarehouse = await context.Storage.FirstOrDefaultAsync(x => x.Name == productType.Name);
+
+                Assert.Equal("Update ProductType", updatedwarehouse.Name);
+
+                //DELETE
+                context.ProductType.Remove(productType);
+                context.SaveChanges();
+
+                var delete = await context.Warehouse.FirstOrDefaultAsync(x => x.Name == productType.Name);
+
+                Assert.True(delete == null);
+            }
+
+        }
+
     }
 }

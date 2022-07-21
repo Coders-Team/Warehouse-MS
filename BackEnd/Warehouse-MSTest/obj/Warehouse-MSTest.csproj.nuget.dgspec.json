@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\OneDrive\\Desktop\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\Warehouse-MSTest.csproj": {}
+    "C:\\Users\\User\\Source\\Repos\\Coders-Team\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\Warehouse-MSTest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\OneDrive\\Desktop\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\Warehouse-MSTest.csproj": {
+    "C:\\Users\\User\\Source\\Repos\\Coders-Team\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\Warehouse-MSTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\OneDrive\\Desktop\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\Warehouse-MSTest.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Source\\Repos\\Coders-Team\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\Warehouse-MSTest.csproj",
         "projectName": "Warehouse-MSTest",
-        "projectPath": "C:\\Users\\User\\OneDrive\\Desktop\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\Warehouse-MSTest.csproj",
+        "projectPath": "C:\\Users\\User\\Source\\Repos\\Coders-Team\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\Warehouse-MSTest.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\OneDrive\\Desktop\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\obj\\",
+        "outputPath": "C:\\Users\\User\\Source\\Repos\\Coders-Team\\Warehouse-MS\\BackEnd\\Warehouse-MSTest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\User\\OneDrive\\Desktop\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj": {
-                "projectPath": "C:\\Users\\User\\OneDrive\\Desktop\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj"
+              "C:\\Users\\User\\Source\\Repos\\Coders-Team\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj": {
+                "projectPath": "C:\\Users\\User\\Source\\Repos\\Coders-Team\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj"
               }
             }
           }
@@ -108,14 +108,14 @@
         }
       }
     },
-    "C:\\Users\\User\\OneDrive\\Desktop\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj": {
+    "C:\\Users\\User\\Source\\Repos\\Coders-Team\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\OneDrive\\Desktop\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Source\\Repos\\Coders-Team\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj",
         "projectName": "Warehouse-MS",
-        "projectPath": "C:\\Users\\User\\OneDrive\\Desktop\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj",
+        "projectPath": "C:\\Users\\User\\Source\\Repos\\Coders-Team\\Warehouse-MS\\BackEnd\\Warehouse-MS\\Warehouse-MS.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\OneDrive\\Desktop\\Warehouse-MS\\BackEnd\\Warehouse-MS\\obj\\",
+        "outputPath": "C:\\Users\\User\\Source\\Repos\\Coders-Team\\Warehouse-MS\\BackEnd\\Warehouse-MS\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -157,6 +157,10 @@
               "version": "[5.0.17, )"
             },
             "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.17, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
               "target": "Package",
               "version": "[5.0.17, )"
             },
