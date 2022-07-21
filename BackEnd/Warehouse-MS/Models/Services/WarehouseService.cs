@@ -159,6 +159,26 @@ namespace Warehouse_MS.Models.Services
 
         }
 
+        public async Task AddWarehouseToUser(int warehouseId, string userId)
+        {
+            UserWarehouse userWarehouse = new UserWarehouse
+            {
+                WarehouseId = warehouseId,
+                UserId = userId
+            };
 
+            _context.Entry(userWarehouse).State = EntityState.Added;
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveWarehouseToUser(int warehouseId, string userId)
+        {
+            UserWarehouse userWarehouse = await _context.UserWarehouse
+                                            .Where(UW => UW.WarehouseId == warehouseId && UW.UserId == userId)
+                                            .FirstAsync();
+            _context.Entry(userWarehouse).State = EntityState.Deleted;
+            _context.SaveChanges();
+        }
     }
 }

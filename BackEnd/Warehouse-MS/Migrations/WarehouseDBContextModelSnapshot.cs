@@ -587,6 +587,21 @@ namespace Warehouse_MS.Migrations
                     b.ToTable("Transaction");
                 });
 
+            modelBuilder.Entity("Warehouse_MS.Models.UserWarehouse", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("WarehouseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "WarehouseId");
+
+                    b.HasIndex("WarehouseId");
+
+                    b.ToTable("UserWarehouse");
+                });
+
             modelBuilder.Entity("Warehouse_MS.Models.Warehouse", b =>
                 {
                     b.Property<int>("Id")
@@ -762,6 +777,25 @@ namespace Warehouse_MS.Migrations
                     b.Navigation("ApplicationUser");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Warehouse_MS.Models.UserWarehouse", b =>
+                {
+                    b.HasOne("Warehouse_MS.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Warehouse_MS.Models.Warehouse", "Warehouse")
+                        .WithMany()
+                        .HasForeignKey("WarehouseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("Warehouse_MS.Models.Warehouse", b =>
