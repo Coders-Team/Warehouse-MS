@@ -13,6 +13,8 @@ namespace Warehouse_MS.Data
         public DbSet<Product> Product { get; set; }
         public DbSet<ProductType> ProductType { get; set; }
         public DbSet<Transaction> Transaction { get; set; }
+        //Join Table
+        public DbSet<UserWarehouse> UserWarehouse { get; set; }
 
         public WarehouseDBContext(DbContextOptions options) : base(options)
         {
@@ -63,11 +65,11 @@ namespace Warehouse_MS.Data
                   new Product { Id = 5, Name = "Product5", Date = new DateTime(2015, 5, 2), ExpiredDate = new DateTime(2017, 5, 5), Weight = 430, StorageTypeId = 2, StorageId = 2, ProductTypeId = 1, SizeInUnit = 10, BarcodeNum = null, Photo = null, Description = " ...." },
                   new Product { Id = 6, Name = "Product6", Date = new DateTime(2016, 5, 2), ExpiredDate = new DateTime(2018, 5, 4), Weight = 110, StorageTypeId = 3, StorageId = 3, ProductTypeId = 3, SizeInUnit = 2, BarcodeNum = null, Photo = null, Description = " ...." },
                   new Product { Id = 7, Name = "Product7", Date = new DateTime(2010, 5, 2), ExpiredDate = new DateTime(2012, 5, 1), Weight = 300, StorageTypeId = 4, StorageId = 5, ProductTypeId = 4, SizeInUnit = 15, BarcodeNum = null, Photo = null, Description = " ...." }
-
-
-
                  );
-            //   modelBuilder.Entity<Transaction>().HasData();
+
+            modelBuilder.Entity<UserWarehouse>().HasKey(
+           UserWarehouse => new { UserWarehouse.UserId, UserWarehouse.WarehouseId }
+           );
 
 
         }
