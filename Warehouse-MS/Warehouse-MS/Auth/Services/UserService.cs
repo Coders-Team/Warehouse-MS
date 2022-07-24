@@ -31,17 +31,17 @@ namespace Warehouse_MS.Auth.Services
 
             if (result.Succeeded)
             {
-                IList<string> Roles = new List<string>();
-                //if (flag)
-                //{
-                //    Roles.Add("supervisor");
-                //}
-                //else
-                //{
-                //    Roles.Add("Admin");
-                //}
-                Roles.Add("User");
-                await _userManager.AddToRolesAsync(user, Roles);
+                //IList<string> Roles = new List<string>();
+                ////if (flag)
+                ////{
+                ////    Roles.Add("supervisor");
+                ////}
+                ////else
+                ////{
+                ////    Roles.Add("Admin");
+                ////}
+                //Roles.Add("User");
+                //await _userManager.AddToRolesAsync(user, Roles);
 
                 UserDto userDto = new UserDto
                 {

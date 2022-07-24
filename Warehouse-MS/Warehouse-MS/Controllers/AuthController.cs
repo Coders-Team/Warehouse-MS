@@ -19,7 +19,7 @@ namespace Warehouse_MS.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Home");
+                return Redirect("/home/index");
             }
             return View();
         }
@@ -28,7 +28,7 @@ namespace Warehouse_MS.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("auth", "index");
+                return Redirect("/auth/index");
             }
             return View();
         }
@@ -37,7 +37,7 @@ namespace Warehouse_MS.Controllers
         {
             await _userService.Logout();
 
-            return RedirectToAction("auth", "index");
+            return Redirect("/auth/index");
         }
 
         public IActionResult Forgotpassword()
