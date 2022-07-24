@@ -9,6 +9,7 @@ using Warehouse_MS.Models;
 using System;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Warehouse_MS.Auth.Models;
 
 namespace Warehouse_MS.Models.Services
 {

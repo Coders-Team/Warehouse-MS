@@ -1,0 +1,57 @@
+﻿@model Warehouse_MS.Auth.Models.Dto.LoginDto
+
+@{
+    Layout = "_AuthLayout";
+}
+<div class="container-xxl">
+      <div class="authentication-wrapper authentication-basic container-p-y">
+        <div class="authentication-inner">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="mb-2">Please sign-in to your account</h4>
+              <form asp-controller="Auth" asp-action="Index" method="post">
+                <div class="mb-3">
+                  <label for="Username" class="form-label">Username</label>
+                  <input asp-for="@Model.Username" type="text" class="form-control" id="Username" name="Username" placeholder="Enter username" autofocus/>
+                  <span asp-validation-for="@Model.Username" class="text-danger"></span>
+                </div>
+                <div class="mb-3 form-password-toggle">
+                  <div class="d-flex justify-content-between">
+                    <label class="form-label" for="password">Password</label>
+                    <a href="auth-forgot-password-basic.html">
+                      <small>Forgot Password?</small>
+                    </a>
+                  </div>
+                  <div class="input-group input-group-merge">
+                    <input  asp-for="@Model.Password"
+                      type="password"
+                      id="password"
+                      class="form-control"
+                      name="password"
+                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                      aria-describedby="password"
+                    />
+                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                  </div>
+                      <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                  
+                </div>
+                <div class="text-center">
+                  <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+                </div>
+              </form>
+              <br />
+              <br />
+              <p class="text-center">
+                <span>Not a member?</span>
+                <a href="/auth/signup">
+                  <span>Create an account</span>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

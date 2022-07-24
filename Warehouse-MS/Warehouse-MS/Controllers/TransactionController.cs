@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Warehouse_MS.Auth.Models;
 using Warehouse_MS.Models;
 using Warehouse_MS.Models.DTO;
 using Warehouse_MS.Models.Interfaces;
