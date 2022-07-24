@@ -1,5 +1,41 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
+@model Warehouse_MS.Models.ProductType
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @{
+    ViewData["Title"] = "ProductType "+@Model.Name;
 }
+
+<a class="btn btn-primary btn-lg " asp-controller="ProductType" asp-action="goAddView"> Add new ProductType </a>
+<br />
+
+@*//// To fromat tha product data as bootstrap card*@
+<section style="background-color: #eee;">
+    <div class="card mb-3" style="max-width: 450px;">
+        <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+             data-mdb-ripple-color="light">
+            @*<img style="height: 350px" src=@Model.ImageUri*@
+
+            <a href="#!">
+                <div class="mask">
+                    <div class="d-flex justify-content-start align-items-end h-100"></div>
+                </div>
+                <div class="hover-overlay">
+                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                </div>
+            </a>
+        </div>
+        <div class="card-body">
+
+            <h5 class="card-title mb-3">@Model.Name</h5>
+
+
+            <h6 class="mb-3">@Model.Description</h6>
+
+
+            <a class="btn btn-primary btn-lg " asp-controller="ProductType" asp-action="goEditView" asp-route-id=@Model.Id>update</a>
+            <a class="btn btn-primary btn-lg " asp-controller="ProductType" asp-action="Delete" asp-route-id=@Model.Id> delete </a>
+
+        </div>
+    </div>
+</section>

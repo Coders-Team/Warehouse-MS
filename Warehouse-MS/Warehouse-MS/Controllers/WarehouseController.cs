@@ -22,7 +22,6 @@ namespace Warehouse_MS.Controllers
         }
 
         // GET: api/Warehouse
-        [HttpGet]
         public async Task<ActionResult> Index()
         {
             IEnumerable<WarehouseDto> Warehouses = await _warehouse.GetWarehouses();
@@ -30,7 +29,6 @@ namespace Warehouse_MS.Controllers
         }
 
         // GET: api/Warehouse/5
-        [HttpGet("{id}")]
         public async Task<ActionResult<WarehouseDto>> Details(int id)
         {
             WarehouseDto warehouse = await _warehouse.GetWarehouse(id);
@@ -39,7 +37,6 @@ namespace Warehouse_MS.Controllers
         }
 
         // PUT: api/Warehouse/5
-        [HttpPut("{id}")]
         public async Task<ActionResult<Warehouse>> Edit(int id)
         {
             WarehouseDto warehouseDto = await _warehouse.GetWarehouse(id);
@@ -101,7 +98,6 @@ namespace Warehouse_MS.Controllers
         }
 
         // DELETE: api/Warehouse/5
-        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var Warehouse = await _warehouse.GetWarehouse(id);

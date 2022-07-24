@@ -16,7 +16,7 @@ namespace Warehouse_MS.Controllers
         }
 
         // GET: api/StorageTypes
-        [HttpGet]
+        
         public async Task<IActionResult> Index()
         {
             IEnumerable<StorageType> storageTypes = await _storageType.GetStorageTypes();
@@ -24,7 +24,7 @@ namespace Warehouse_MS.Controllers
         }
 
         // GET: api/StorageType/5
-        [HttpGet("{id}")]
+
         public async Task<IActionResult> Details(int id)
         {
             StorageType storageType = await _storageType.GetStorageType(id);
@@ -35,8 +35,28 @@ namespace Warehouse_MS.Controllers
             return View(storageType);
         }
 
+        public async Task<IActionResult> goEditView(int id)
+        {
+            StorageType storageType = await _storageType.GetStorageType(id);
+            if (storageType == null)
+            {
+                return View("Error");
+            }
+            ViewBag.flagReqType = "Edit";
+            return View("AddEditView",storageType);
+        }
+        public async Task<IActionResult> goAddView()
+        {
+            ViewBag.flagReqType = "add";
+
+
+            return View("AddEditView");
+        }
+
+
         // PUT: api/StorageType/5
-        [HttpPut("{id}")]
+        //[HttpPut("{id}")]
+        [HttpPost]
         public async Task<IActionResult> Edit(int id, StorageType storageType)
         {
             if (id != storageType.Id)
@@ -45,7 +65,18 @@ namespace Warehouse_MS.Controllers
             }
             StorageType newStorageType = await _storageType.UpdateStorageType(id, storageType);
 
-            return View(newStorageType);
+            if (ModelState.IsValid)
+            {
+               
+                TempData["AlertMessage"] = $"The {newStorageType.Name}  Updated successfully :)";
+
+                return RedirectToAction("Index", "StorageType");
+            }
+            else
+            {
+
+                return View("AddEditView");
+            }
         }
 
         // POST: api/StorageType
@@ -53,12 +84,24 @@ namespace Warehouse_MS.Controllers
         public async Task<ActionResult<StorageType>> Add(StorageType storageType)
         {
             StorageType newStorageType = await _storageType.Create(storageType);
-            return View(newStorageType);
+
+            if (ModelState.IsValid)
+            {
+
+                TempData["AlertMessage"] = $"The {newStorageType.Name}  Added successfully :)";
+
+                return RedirectToAction("Index", "StorageType");
+            }
+            else
+            {
+
+                return View("AddEditView");
+            }
 
         }
 
         // DELETE: api/StorageType/5
-        [HttpDelete("{id}")]
+    
         public async Task<IActionResult> Delete(int id)
         {
             var storgeType = await _storageType.GetStorageType(id);
@@ -68,7 +111,9 @@ namespace Warehouse_MS.Controllers
             }
 
             await _storageType.Delete(id);
-            return Redirect("/");
+            TempData["AlertMessage"] = "Delete The StorageType done successfully :)";
+
+            return RedirectToAction("Index", "StorageType");
 
         }
 
