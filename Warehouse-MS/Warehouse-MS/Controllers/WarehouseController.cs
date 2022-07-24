@@ -56,16 +56,15 @@ namespace Warehouse_MS.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(Warehouse warehouse)
+        public async Task<IActionResult> Edit(int id, Warehouse warehouse)
         {
-            if (ModelState.IsValid)
+            if (id != warehouse.Id)
             {
-                await _warehouse.UpdateWarehouse(warehouse.Id, warehouse);
-
-                return RedirectToAction("Index");
+                return View("Error");
             }
+            Warehouse newwarehouse = await _warehouse.UpdateWarehouse(id, warehouse);
 
-            return View(warehouse);
+            return View(newwarehouse);
         }
         // POST: api/Warehouse
         public IActionResult Create()
@@ -97,17 +96,10 @@ namespace Warehouse_MS.Controllers
             return View(warehouse);
         }
 
-        // DELETE: api/Warehouse/5
-        public async Task<IActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var Warehouse = await _warehouse.GetWarehouse(id);
-            if (Warehouse == null)
-            {
-                return View("Error");
-            }
             await _warehouse.Delete(id);
-            return Redirect("./");
-
+            return RedirectToAction("Index");
         }
     }
 }
