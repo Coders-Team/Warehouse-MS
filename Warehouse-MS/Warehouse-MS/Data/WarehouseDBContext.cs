@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Warehouse_MS.Auth.Models;
@@ -86,6 +87,21 @@ namespace Warehouse_MS.Data
            );
 
 
+            SeedRole(modelBuilder, "Admin");
+            SeedRole(modelBuilder, "supervisor");
+
+
+        }
+        private void SeedRole(ModelBuilder modelBuilder, string roleName)
+        {
+            var role = new IdentityRole
+            {
+                Id = roleName.ToLower(),
+                Name = roleName,
+                NormalizedName = roleName.ToUpper(),
+                ConcurrencyStamp = Guid.Empty.ToString()
+            };
+            modelBuilder.Entity<IdentityRole>().HasData(role);
         }
     }
 }

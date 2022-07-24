@@ -213,8 +213,8 @@ namespace Warehouse_MS.Migrations
                     SizeInUnit = table.Column<int>(type: "int", nullable: false),
                     LocationInWarehouse = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WarehouseId = table.Column<int>(type: "int", nullable: false),
-                    StorageTypeId = table.Column<int>(type: "int", nullable: false)
+                    WarehouseId = table.Column<int>(type: "int", nullable: true),
+                    StorageTypeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -224,13 +224,13 @@ namespace Warehouse_MS.Migrations
                         column: x => x.StorageTypeId,
                         principalTable: "StorageType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Storage_Warehouse_WarehouseId",
                         column: x => x.WarehouseId,
                         principalTable: "Warehouse",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -248,8 +248,8 @@ namespace Warehouse_MS.Migrations
                     Photo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StorageId = table.Column<int>(type: "int", nullable: false),
-                    StorageTypeId = table.Column<int>(type: "int", nullable: false),
-                    ProductTypeId = table.Column<int>(type: "int", nullable: false)
+                    StorageTypeId = table.Column<int>(type: "int", nullable: true),
+                    ProductTypeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -259,19 +259,19 @@ namespace Warehouse_MS.Migrations
                         column: x => x.ProductTypeId,
                         principalTable: "ProductType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Product_Storage_StorageId",
                         column: x => x.StorageId,
                         principalTable: "Storage",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Product_StorageType_StorageTypeId",
                         column: x => x.StorageTypeId,
                         principalTable: "StorageType",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -295,13 +295,13 @@ namespace Warehouse_MS.Migrations
                         column: x => x.UpdatedBy,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_Transaction_Product_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Product",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(

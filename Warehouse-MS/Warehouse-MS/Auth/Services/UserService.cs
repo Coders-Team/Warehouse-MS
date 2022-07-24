@@ -19,7 +19,7 @@ namespace Warehouse_MS.Auth.Services
             _userManager = userManager;
             _signInManager = SignInMngr;
         }
-        public async Task<UserDto> Register(RegisterDto registerDto, ModelStateDictionary modelstate)
+        public async Task<UserDto> Register(RegisterDto registerDto, ModelStateDictionary modelstate)//,bool flag
         {
             var user = new ApplicationUser
             {
@@ -32,6 +32,14 @@ namespace Warehouse_MS.Auth.Services
             if (result.Succeeded)
             {
                 IList<string> Roles = new List<string>();
+                //if (flag)
+                //{
+                //    Roles.Add("supervisor");
+                //}
+                //else
+                //{
+                //    Roles.Add("Admin");
+                //}
                 Roles.Add("User");
                 await _userManager.AddToRolesAsync(user, Roles);
 

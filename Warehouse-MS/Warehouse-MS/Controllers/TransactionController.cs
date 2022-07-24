@@ -22,7 +22,7 @@ namespace Warehouse_MS.Controllers
         }
 
         // GET: api/Transaction
-        [HttpGet]
+      
         public async Task<ActionResult> Index()
         {
            IEnumerable<Transaction> transactions = await _transaction.GetTransactions();
@@ -30,7 +30,7 @@ namespace Warehouse_MS.Controllers
         }
 
         // GET: api/Transaction/5
-        [HttpGet("{id}")]
+       
         public async Task<ActionResult> Details(int id)
         {
             Transaction transaction = await _transaction.GetTransaction(id);
@@ -42,7 +42,7 @@ namespace Warehouse_MS.Controllers
         }
 
         // PUT: api/Transaction/5
-        [HttpPut("{id}")]
+        [HttpPost]
         public async Task<IActionResult> Edit(int id, Transaction transaction)
         {
 
@@ -67,7 +67,7 @@ namespace Warehouse_MS.Controllers
         }
 
         // DELETE: api/Transaction/5
-        [HttpDelete("{id}")]
+  
         public async Task<IActionResult> Delete(int id)
         {
             var transaction = await _transaction.GetTransaction(id);

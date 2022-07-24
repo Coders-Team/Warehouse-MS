@@ -16,7 +16,7 @@ namespace Warehouse_MS.Controllers
         }
 
         // GET: api/ProductTypes
-        [HttpGet]
+        
         public async Task<ActionResult> Index()
         {
              IEnumerable < ProductType > productType = await _productType.GetProductTypes();
@@ -24,7 +24,7 @@ namespace Warehouse_MS.Controllers
         }
 
         // GET: api/ProductType/5
-        [HttpGet("{id}")]
+       
         public async Task<ActionResult> Details(int id)
         {
             ProductType productType = await _productType.GetProductType(id);
@@ -34,9 +34,27 @@ namespace Warehouse_MS.Controllers
             }
             return View(productType);
         }
+        public async Task<IActionResult> goEditView(int id)
+        {
+            ProductType productType = await _productType.GetProductType(id);
+            if (productType == null)
+            {
+                return View("Error");
+            }
+            ViewBag.flagReqType = "Edit";
+            return View("AddEditView", productType);
+        }
+        public async Task<IActionResult> goAddView()
+        {
+            ViewBag.flagReqType = "add";
+
+
+            return View("AddEditView");
+        }
+
 
         // PUT: api/ProductType/5
-        [HttpPut("{id}")]
+        [HttpPost]
         public async Task<IActionResult> Edit(int id, ProductType productType)
         {
             if (id != productType.Id)
@@ -58,7 +76,7 @@ namespace Warehouse_MS.Controllers
         }
 
         // DELETE: api/ProductType/5
-        [HttpDelete("{id}")]
+      
         public async Task<IActionResult> Delete(int id)
         {
             ProductType productType = await _productType.GetProductType(id);

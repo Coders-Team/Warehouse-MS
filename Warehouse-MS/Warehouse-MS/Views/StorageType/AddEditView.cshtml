@@ -1,0 +1,31 @@
+﻿@model Warehouse_MS.Models.StorageType
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+
+    var x = "";
+    if (ViewBag.flagReqType == "add")
+    {
+        <h3>wellcome in add page</h3>
+        x = "Add";
+        ViewData["Title"] = "Add StorageType Page";
+    }
+    else
+    {
+        <h3>wellcome in add page</h3>
+        x = "Edit";
+        ViewData["Title"] = "Edit StorageType Page";
+    }}
+
+<form asp-controller="StorageType" asp-action=@x method="post">
+    @{
+        if (x == "Edit")
+        {
+            <input hidden asp-for="@Model.Id" />
+        }
+    }
+
+    <partial name="_AddEdit"></partial>
+    <button type="submit"> @x StorageType</button>
+</form>
+<div asp-validation-summary="All"></div>

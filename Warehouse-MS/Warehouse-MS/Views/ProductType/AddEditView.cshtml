@@ -1,0 +1,25 @@
+﻿@model Warehouse_MS.Models.ProductType
+    @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+    @{
+        var x = "";
+        if (ViewBag.flagReqType == "add") {
+    <h3>wellcome in add page</h3>
+            x = "Add";
+        } else {
+<h3>wellcome in add page</h3>
+            x = "Edit";
+        }}
+
+    <form asp-controller="ProductType" asp-action=@x method="post">
+        @{
+            if (x == "Edit")
+            {
+                <input hidden asp-for="@Model.Id" />
+            }
+        }
+
+        <partial name="_AddEdit"></partial>
+        <button type="submit"> @x Product Type</button>
+    </form>
+    <div asp-validation-summary="All"></div>
