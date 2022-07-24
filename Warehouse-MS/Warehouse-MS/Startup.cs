@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Warehouse_MS.Auth.Interfaces;
+using Warehouse_MS.Auth.Models;
+using Warehouse_MS.Auth.Services;
 using Warehouse_MS.Data;
 using Warehouse_MS.Models;
 using Warehouse_MS.Models.Interfaces;
@@ -35,13 +39,20 @@ namespace Warehouse_MS
             })
             .AddEntityFrameworkStores<WarehouseDBContext>();
 
-            services.AddTransient<IUserService, IdentityUserService>();
+            services.AddTransient<IUserService, UserService>();
 
             services.AddDbContext<WarehouseDBContext>(options =>
             {
                 // Our DATABASE_URL from js days
                 string connectionString = Configuration.GetConnectionString("DefaultConnection");
                 options.UseSqlServer(connectionString);
+            });
+
+            // Invalid user redirects
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = new PathString("/auth/index");
+                options.AccessDeniedPath = new PathString("/auth/index");
             });
 
             services.AddScoped<IProductType, ProductTypeService>();
@@ -51,6 +62,7 @@ namespace Warehouse_MS
             services.AddScoped<ITransaction, TransactionService>();
             services.AddTransient<IStorage, StorageService>();
             services.AddTransient<IWarehouse, WarehouseService>();
+            services.AddHttpContextAccessor();
             services.AddControllersWithViews();
             services.AddControllers()
                    .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);

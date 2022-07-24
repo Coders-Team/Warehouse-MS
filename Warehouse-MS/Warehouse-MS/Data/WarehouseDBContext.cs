@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Warehouse_MS.Auth.Models;
 using Warehouse_MS.Models;
 
 namespace Warehouse_MS.Data

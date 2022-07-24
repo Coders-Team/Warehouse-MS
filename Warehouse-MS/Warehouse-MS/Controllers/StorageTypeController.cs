@@ -19,8 +19,6 @@ namespace Warehouse_MS.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-
-
             IEnumerable<StorageType> storageTypes = await _storageType.GetStorageTypes();
             return View(storageTypes);
         }

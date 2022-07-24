@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using Warehouse_MS.Auth.Models;
 
 namespace Warehouse_MS.Models
 {
