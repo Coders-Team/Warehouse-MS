@@ -11,5 +11,6 @@ namespace Warehouse_MS.Auth.Interfaces
         Task<UserDto> Authenticate(string username, string password);
         Task<UserDto> GetUser(ClaimsPrincipal principal);
         Task Logout();
+        Task<string> PasswordGenerator(string email);
     }
 }

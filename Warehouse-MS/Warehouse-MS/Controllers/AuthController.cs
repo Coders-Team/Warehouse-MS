@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Warehouse_MS.Auth.Interfaces;
 using Warehouse_MS.Auth.Models.Dto;
@@ -10,7 +13,7 @@ namespace Warehouse_MS.Controllers
     {
         private readonly IUserService _userService;
 
-        public AuthController(IUserService userService)
+        public AuthController(IUserService userService )
         {
             _userService = userService;
         }
@@ -35,14 +38,43 @@ namespace Warehouse_MS.Controllers
 
         public async Task<IActionResult> Logout()
         {
-            await _userService.Logout();
-
-            return Redirect("/auth/index");
+            if (User.Identity.IsAuthenticated)
+            {
+                var userName = HttpContext.User.Identity.Name;
+                await _userService.Logout();
+                ViewData["user"] = userName;
+                return View();
+            }
+                return Redirect("/auth/index");
         }
 
         public IActionResult Forgotpassword()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Forgotpassword(string email)
+        {
+            var password = _userService.PasswordGenerator(email);
+
+            if (password == null)
+            {
+                ViewData["email"] = "Email not found";
+                return View();
+            }
+
+            SendGridClient client = new SendGridClient("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");
+            SendGridMessage msg = new SendGridMessage();
+
+            msg.SetFrom("22029874@student.ltuc.com", "Admin");
+            msg.AddTo(email);
+            msg.SetSubject("Reset your Password");
+            msg.AddContent(MimeType.Html, $"This is your new password {email}");
+
+            await client.SendEmailAsync(msg);
+
+            return Redirect("/auth/index");
         }
 
         [HttpPost]
@@ -73,6 +105,25 @@ namespace Warehouse_MS.Controllers
                 ModelState.AddModelError("NotMatch", "Username and Passowrd not match");
                 return View();
             }
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Logout(string Username ,string Password)
+        {
+            if (Username != null && Password != null)
+            {
+                var user = await _userService.Authenticate(Username,Password);
+                if (user != null)
+                {
+                    return Redirect("/home/index");
+                }
+                ViewData["user"] = Username;
+                ViewData["match"] = "Username and Passowrd not match";
+                return View();
+            }
+            ViewData["data"] = "Please enter your password";
+            ViewData["user"] = Username;
             return View();
         }
     }
