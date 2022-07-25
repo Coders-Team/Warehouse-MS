@@ -2,72 +2,104 @@
 @using Warehouse_MS.Models.DTO
 @model List<WarehouseDto>
 @{
-    Layout = "_Empty";
+    Layout = "_Layout";
 }
 
-<h4>Warehouse Page</h4>
-    <hr />
-<p>
-    <a asp-controller="Warehouse" asp-action="Create">Create New</a>
-</p>
-<table border=1 class="table">
-    <thead>
-        <tr>
-            <th>
-                Id
-            </th>
-            <th>
-                Name
-            </th>
-            <th>
-                SizeInUnit
-            </th> 
-            <th>
-                Location
-            </th> 
-            <th>
-                Description
-            </th>
-           
-            <th>
-                Edit
-            </th>
-            <th>    
-                Details
-            </th>
-            <th>
-                Delete
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SizeInUnit)
-            </td> 
-            <td>
-                @Html.DisplayFor(modelItem => item.Location)
-            </td> 
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                <a asp-controller="Warehouse" asp-action="Edit" asp-route-id=@item.Id>Edit</a>
-            </td>
-            <td>
-                <a asp-controller="Warehouse" asp-action="Details" asp-route-id=@item.Id>Details</a>
-            </td>
-            <td>
-                <a asp-controller="Warehouse" asp-action="Delete" asp-route-id=@item.Id>Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+@*<h4>Warehouse Page</h4>
+        <hr />
+    <p>
+        <a asp-controller="Warehouse" asp-action="Create">Create New</a>
+    </p>
+    <table border=1 class="table">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Name
+                </th>
+
+                <th>
+                    Edit
+                </th>
+                <th>
+                    Details
+                </th>
+                <th>
+                    Delete
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+                <td>
+                    <a asp-controller="Warehouse" asp-action = "Edit" asp-route-id =@item.Id>Edit</a>
+                </td>
+                <td>
+                    <a asp-controller="Warehouse" asp-action="Details" asp-route-id=@item.Id>Details</a>
+                </td>
+                <td>
+                    <a asp-controller="Warehouse" asp-action="Delete" asp-route-id=@item.Id>Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>*@
+
+
+@*href="javascript:void(0);"*@
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row row-cols-1 row-cols-md-3 g-4 mb-5" style="height:20rem;">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <h6 class="card-subtitle text-muted">@item.Location</h6>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">@item.Description</p>
+                            <a class="btn btn-primary" asp-controller="Warehouse" asp-action="Details" asp-route-id=@item.Id>Details</a>
+                            <a  class="btn btn-danger" asp-controller="Warehouse" asp-action="Delete" asp-route-id=@item.Id>Delete</a>
+                            <a  class="btn btn-danger" asp-controller="Warehouse" asp-action="Edit" asp-route-id=@item.Id>Edit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <br>
+                        <h5 class="text-center">Add Warehouse</h5>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="col text-center">
+
+                            <a type="button" asp-controller="Warehouse" asp-action="Create" class="btn bi-plus btn-icon ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                </svg>
+                            </a>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
