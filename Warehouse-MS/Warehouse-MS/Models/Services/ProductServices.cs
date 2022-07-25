@@ -1,6 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using QRCoder;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Warehouse_MS.Data;
@@ -12,11 +16,13 @@ namespace Warehouse_MS.Models.Services
     public class ProductServices : IProduct
     {
         private readonly WarehouseDBContext _context;
+        private readonly ITransaction _transaction;
 
-       public ProductServices(WarehouseDBContext context)
+        public ProductServices(WarehouseDBContext context, ITransaction transaction)
        {
             _context = context;
-       }
+            this._transaction = transaction;
+        }
 
     public async Task<ProductDto> Create(ProductDto productDto) { 
 
@@ -30,14 +36,32 @@ namespace Warehouse_MS.Models.Services
                 ExpiredDate = productDto.ExpiredDate,
                 BarcodeNum = GenerateBarCode().Result,
                 SizeInUnit =productDto.SizeInUnit,
-                Photo = productDto.Photo, 
-                Description = productDto.Description
+                Photo = null,
+                Description =productDto.Description
             };
 
             productDto.BarcodeNum = product.BarcodeNum;
             _context.Entry(product).State = EntityState.Added;
+            await _context.SaveChangesAsync();
+
+            product.Photo= QRCode1("http://localhost:3639/Products/Details/" + product.Id);
+
+            _context.Entry(product).State = EntityState.Modified;
 
             await _context.SaveChangesAsync();
+
+            TransactionDto transactionDto = new TransactionDto
+            {
+                OldLocation = "same location",
+                NewLocation = "same location",
+                Type = "add",
+                ProductId = product.Id,
+
+            };
+
+            await _transaction.Create(transactionDto);
+
+
             return productDto;
 
     }
@@ -67,6 +91,20 @@ namespace Warehouse_MS.Models.Services
         {
             _context.Entry(product).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+
+
+
+            TransactionDto transactionDto = new TransactionDto()
+            {
+                OldLocation = "same location",
+                NewLocation = "same location",
+                Type = "Update",
+                ProductId = product.Id,
+
+            };
+
+            await _transaction.Create(transactionDto);
+
             return product;
 
 
@@ -182,7 +220,27 @@ namespace Warehouse_MS.Models.Services
 
         //    return updatedProduct;
         //}
-        public async Task<string> GenerateBarCode()
+        public string QRCode1(string qrcode)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            {
+                QRCodeGenerator qrGenerator = new QRCodeGenerator();
+                QRCodeData qrCodeData = qrGenerator.CreateQrCode(qrcode, QRCodeGenerator.ECCLevel.Q);
+                QRCode qrCode = new QRCode(qrCodeData);
+                using (Bitmap bitMap = qrCode.GetGraphic(20))
+                {
+                    bitMap.Save(ms, ImageFormat.Png);
+                    var x = "data:image/png;base64," + Convert.ToBase64String(ms.ToArray());
+                    return x;
+                }
+            }
+
+            return null;
+        }
+
+    
+
+public async Task<string> GenerateBarCode()
         {
 
             Random rand = new Random();
@@ -243,6 +301,19 @@ namespace Warehouse_MS.Models.Services
             List<Product> products = new List<Product>();
             products.Add(product);
             products.Add(GetByBarCode(newProduct.BarcodeNum).Result);
+
+            TransactionDto transactionDto = new TransactionDto
+            {
+                OldLocation = "same location",
+                NewLocation = "same location",
+                Type = "Packing",
+                ProductId = product.Id,
+
+            };
+
+            await _transaction.Create(transactionDto);
+
+
 
             return products;
 

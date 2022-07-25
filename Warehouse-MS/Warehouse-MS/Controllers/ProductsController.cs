@@ -63,6 +63,7 @@ namespace Warehouse_MS.Controllers
             }
         }
 
+     
 
         // GET: Products/Edit?id=2
         public async Task<IActionResult> Edit(int id)
