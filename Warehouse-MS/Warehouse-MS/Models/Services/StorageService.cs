@@ -145,15 +145,9 @@ namespace Warehouse_MS.Models.Services
                 BarcodeNum = await _product.GenerateBarCode(),
                 Photo = productDto.Photo,
                 Description = productDto.Description
-
-
-
-
             };
-
             _context.Entry(product).State = EntityState.Added;
             await _context.SaveChangesAsync();
-
 
             TransactionDto transactionDto = new TransactionDto
             {
@@ -163,10 +157,7 @@ namespace Warehouse_MS.Models.Services
                 ProductId = product.Id,
 
             };
-
             await _transaction.Create(transactionDto);
-
-
             return product;
         }
         /// <summary>
