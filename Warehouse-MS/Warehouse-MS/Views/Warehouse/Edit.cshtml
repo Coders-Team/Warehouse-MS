@@ -1,6 +1,8 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model Warehouse_MS.Models.Warehouse
-
+@{
+    Layout = "_Empty";
+}
 <h3>Edit Warehouse</h3>
 
 <form asp-controller="Warehouse" asp-action="Edit" method="post">

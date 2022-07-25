@@ -44,6 +44,22 @@ namespace Warehouse_MS.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "admin",
+                            ConcurrencyStamp = "00000000-0000-0000-0000-000000000000",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "supervisor",
+                            ConcurrencyStamp = "00000000-0000-0000-0000-000000000000",
+                            Name = "supervisor",
+                            NormalizedName = "SUPERVISOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

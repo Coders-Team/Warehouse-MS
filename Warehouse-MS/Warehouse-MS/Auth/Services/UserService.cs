@@ -31,7 +31,7 @@ namespace Warehouse_MS.Auth.Services
 
             if (result.Succeeded)
             {
-                //IList<string> Roles = new List<string>();
+                IList<string> Roles = new List<string>();
                 ////if (flag)
                 ////{
                 ////    Roles.Add("supervisor");
@@ -40,8 +40,8 @@ namespace Warehouse_MS.Auth.Services
                 ////{
                 ////    Roles.Add("Admin");
                 ////}
-                //Roles.Add("User");
-                //await _userManager.AddToRolesAsync(user, Roles);
+                Roles.Add("Admin");
+                await _userManager.AddToRolesAsync(user, Roles);
 
                 UserDto userDto = new UserDto
                 {

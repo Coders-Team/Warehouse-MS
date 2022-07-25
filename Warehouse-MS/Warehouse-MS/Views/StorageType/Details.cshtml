@@ -1,7 +1,9 @@
 ﻿
 @model Warehouse_MS.Models.StorageType
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-
+@{
+    Layout = "_Empty";
+}
 @{
     ViewData["Title"] = "StorageType "+@Model.Name;
 }
