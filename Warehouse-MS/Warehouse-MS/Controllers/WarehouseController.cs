@@ -24,7 +24,9 @@ namespace Warehouse_MS.Controllers
         // GET: api/Warehouse
         public async Task<ActionResult> Index()
         {
-            IEnumerable<WarehouseDto> Warehouses = await _warehouse.GetWarehouses();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            IEnumerable<WarehouseDto> Warehouses = await _warehouse.GetUserWarehouse(userId);
             return View(Warehouses);
         }
 
@@ -47,7 +49,8 @@ namespace Warehouse_MS.Controllers
                 Name = warehouseDto.Name,
                 Description = warehouseDto.Description,
                 SizeInUnit = warehouseDto.SizeInUnit,
-                Location = warehouseDto.Location
+                Location = warehouseDto.Location,
+                UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
 
 
             };
@@ -85,7 +88,8 @@ namespace Warehouse_MS.Controllers
                     Name = warehouse.Name,
                     Description = warehouse.Description,
                     SizeInUnit = warehouse.SizeInUnit,
-                    Location = warehouse.Location
+                    Location = warehouse.Location,
+                    UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
 
                 };
 
@@ -101,5 +105,6 @@ namespace Warehouse_MS.Controllers
             await _warehouse.Delete(id);
             return RedirectToAction("Index");
         }
+
     }
 }
