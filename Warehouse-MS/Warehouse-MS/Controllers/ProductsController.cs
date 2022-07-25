@@ -154,5 +154,30 @@ namespace Warehouse_MS.Controllers
             return View(products);
         }
 
+        //products/FilterByProductType?input=food
+        public async Task<IActionResult> FilterByProductType(string input)
+        {
+            var products = await _product.FilterByProductType(input);
+
+            return View(products);
+        }
+
+        // GET: products/FilterByStorageType?input=on shelves
+        public async Task<IActionResult> FilterByStorageType(string input)
+        {
+
+            var products = await _product.FilterByStorageType(input);
+
+            return View(products);
+        }
+
+        // GET: products/Packing?id=2&newWeight=100&newSize=2 
+        public async Task<IActionResult> Packing(int id, int newWeight, int newSize)
+        {
+
+            var products = await _product.Packing(id, newWeight, newSize);
+
+            return View(products);
+        }
     }
 }

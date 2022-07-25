@@ -52,14 +52,14 @@
     function getProductType() {
         var txt = document.getElementById('productTypeInput').value;
 
-        location.replace("products/FilterByProductType?input=" + txt);
+        location.replace("FilterByProductType?input=" + txt);
 
     }
 
     function getStorageType() {
         var txt = document.getElementById('storageTypeInput').value;
 
-        location.replace("products/FilterByStorageType?input=" + txt);
+        location.replace("FilterByStorageType?input=" + txt);
 
     }
 
@@ -68,14 +68,14 @@
         var newWeight = document.getElementById("NewWeightInput").value;
         var newSize = document.getElementById("NewSizeInput").value;
 
-        location.replace("products/Packing?id=" + id + "&newWeight=" + newWeight + "&newSize=" + newSize);
+        location.replace("Packing?id=" + id + "&newWeight=" + newWeight + "&newSize=" + newSize);
     }
 
     function getBarcode() {
 
         let barcode = document.getElementById("barcodeInput").value;
         
-        location.replace("products/GetByBarCode?barcode=" + barcode);
+        location.replace("GetByBarCode?barcode=" + barcode);
     }
 
 
