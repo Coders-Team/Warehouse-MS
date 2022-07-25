@@ -1,0 +1,75 @@
+﻿@model Warehouse_MS.Models.DTO.StorageDto
+@{
+    Layout = "_Empty";
+}
+
+<h4>@Model.Name</h4>
+    <hr />
+@if(Model.Products.Count == 0)
+{
+    <p>No product found in this Storage</p>
+}
+else
+{
+
+<table border=1 class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                ExpiredDate
+            </th>
+            <th>
+                SizeInUnit
+            </th>
+            <th>
+                Weight
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                BarcodeNum
+            </th>
+            <th>
+                Description
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Products) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpiredDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SizeInUnit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Weight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BarcodeNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+}
