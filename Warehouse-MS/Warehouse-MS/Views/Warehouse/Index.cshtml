@@ -19,6 +19,15 @@
             <th>
                 Name
             </th>
+            <th>
+                SizeInUnit
+            </th> 
+            <th>
+                Location
+            </th> 
+            <th>
+                Description
+            </th>
            
             <th>
                 Edit
@@ -40,9 +49,17 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-           
             <td>
-                <a asp-controller="Warehouse" asp-action = "Edit" asp-route-id =@item.Id>Edit</a>
+                @Html.DisplayFor(modelItem => item.SizeInUnit)
+            </td> 
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td> 
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <a asp-controller="Warehouse" asp-action="Edit" asp-route-id=@item.Id>Edit</a>
             </td>
             <td>
                 <a asp-controller="Warehouse" asp-action="Details" asp-route-id=@item.Id>Details</a>
