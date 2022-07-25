@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System;
 
 namespace Warehouse_MS.Auth.Services
 {
@@ -94,6 +95,36 @@ namespace Warehouse_MS.Auth.Services
         public async Task Logout()
         {
             await _signInManager.SignOutAsync();
+        }
+
+        public async Task<string> PasswordGenerator(string email)
+        {
+            char[] alphaCapital = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+
+            char[] alphaSmall = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
+
+            int[] numbers = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+
+            string[] special = { "@", "$", "_" };
+
+            Random rnd = new Random();
+            int alphaC = rnd.Next(0, 26);
+            int alphaS = rnd.Next(0, 26);
+            int num = rnd.Next(0, 10);
+            int specCahr = rnd.Next(0, 3);
+
+            string password = $"{alphaCapital[alphaC]}{alphaSmall[alphaS]}{alphaSmall[alphaS]}{alphaSmall[alphaS]}{special[specCahr]}{numbers[num]}{numbers[num]}{numbers[num]}{numbers[num]}";
+
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return null;
+            }
+            var hashPassword = _userManager.PasswordHasher.HashPassword(user, password);
+            user.PasswordHash = hashPassword;
+            await _userManager.UpdateAsync(user);
+
+            return password;
         }
     }
 }
