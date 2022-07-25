@@ -42,9 +42,9 @@ namespace Warehouse_MS.Models.Services
                 Id = warehouse.Id,
                 Name = warehouse.Name,
                 SizeInUnit = warehouse.SizeInUnit,
-                Location = warehouse .Location,
+                Location = warehouse.Location,
                 Description = warehouse.Description,
-                UserId=warehouse.UserId,
+                UserId = warehouse.UserId,
                 Storages = warehouse.Storages.Select(s => new StorageDto
                 {
                     Id = s.Id,
@@ -92,7 +92,7 @@ namespace Warehouse_MS.Models.Services
         {
             Warehouse warehouse = await _context.Warehouse.FindAsync(id);
 
-            
+
 
             _context.Entry(warehouse).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
@@ -103,7 +103,7 @@ namespace Warehouse_MS.Models.Services
         {
             int? newSize = SizeisOk(storageDto.SizeInUnit, storageDto.WarehouseId).Result;
 
-            if (newSize== null)
+            if (newSize == null)
             {
                 return null;
             }
@@ -113,7 +113,7 @@ namespace Warehouse_MS.Models.Services
                 Name = storageDto.Name,
                 StorageTypeId = storageDto.StorageTypeId,
                 WarehouseId = storageDto.WarehouseId,
-                SizeInUnit =(int) newSize,
+                SizeInUnit = (int)newSize,
                 LocationInWarehouse = storageDto.LocationInWarehouse,
                 Description = storageDto.Description
 
@@ -127,7 +127,7 @@ namespace Warehouse_MS.Models.Services
 
         }
 
-      
+
 
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace Warehouse_MS.Models.Services
         /// <param name="sizeInUnit"></param>
         /// <param name="warehouseId"></param>
         /// <returns></returns>
-        private async Task< int?> SizeisOk(int sizeInUnit, int warehouseId)
+        private async Task<int?> SizeisOk(int sizeInUnit, int warehouseId)
         {
 
             WarehouseDto warehouse = await GetWarehouse(warehouseId);
@@ -149,9 +149,9 @@ namespace Warehouse_MS.Models.Services
             foreach (StorageDto storge in warehouse.Storages)
             {
                 totalStze += storge.SizeInUnit;
-                
+
             }
-            if (totalStze+sizeInUnit> warehouse.SizeInUnit)
+            if (totalStze + sizeInUnit > warehouse.SizeInUnit)
             {
                 return null;
             }
@@ -179,6 +179,29 @@ namespace Warehouse_MS.Models.Services
                                             .FirstAsync();
             _context.Entry(userWarehouse).State = EntityState.Deleted;
             _context.SaveChanges();
+        }
+        public async Task<List<WarehouseDto>> GetUserWarehouse(string userId)
+        {
+
+            return await _context.Warehouse.Select(warehouse => new WarehouseDto
+            {
+                Id = warehouse.Id,
+                Name = warehouse.Name,
+                SizeInUnit = warehouse.SizeInUnit,
+                Location = warehouse.Location,
+                Description = warehouse.Description,
+                UserId = warehouse.UserId,
+                Storages = warehouse.Storages.Select(s => new StorageDto
+                {
+                    Id = s.Id,
+                    Name = s.Name,
+                    SizeInUnit = s.SizeInUnit,
+                    LocationInWarehouse = s.LocationInWarehouse,
+                    Description = s.Description,
+                    WarehouseId = s.WarehouseId,
+                    StorageTypeId = s.StorageTypeId
+                }).ToList()
+            }).Where(c => c.UserId == userId).ToListAsync();
         }
     }
 }
