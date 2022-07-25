@@ -120,5 +120,39 @@ namespace Warehouse_MS.Controllers
 
             return View(product);
         }
+
+
+        // GET: products/SortByWeight?falg=ture
+        public async Task<IActionResult> SortByWeight(bool flag)
+        {
+            var products = await _product.SortByWeight(flag);
+
+            return View(products);
+        }
+
+        // GET: products/SortByDate?falg=ture
+        public async Task<IActionResult> SortByDate(bool flag)
+        {
+            var products = await _product.SortByDate(flag);
+
+            return View(products);
+        }
+
+        // GET: products/SortByExpirationDate?falg=ture
+        public async Task<IActionResult> SortByExpirationDate(bool flag)
+        {
+            var products = await _product.SortByExpirationDate(flag);
+
+            return View(products);
+        }
+
+        // GET:  products/SortBySize?falg=ture
+        public async Task<IActionResult> SortBySize(bool flag)
+        {
+            var products = await _product.SortBySize(flag);
+
+            return View(products);
+        }
+
     }
 }
