@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Warehouse_MS.Models;
 using Warehouse_MS.Models.DTO;
@@ -12,16 +13,20 @@ namespace Warehouse_MS.Controllers
     public class StorageController : Controller
     {
         private readonly IStorage _storage;
+        private readonly IWarehouse _warehouse;
 
-        public StorageController(IStorage storage)
+        public StorageController(IStorage storage,IWarehouse warehouse)
         {
             _storage = storage;
+            this._warehouse = warehouse;
         }
 
         public async Task<IActionResult> Index()
         {
-            List<StorageDto> storages = await _storage.GetStorages();
-            return View(storages);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            List<WarehouseDto> warehouseDto = await _storage.GetStorages(userId);
+            return View(warehouseDto);
         }
         public async Task<ActionResult<StorageDto>> Details(int id)
         {
@@ -30,14 +35,25 @@ namespace Warehouse_MS.Controllers
             return View(storage);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.warehouses = await _warehouse.GetWarehouseTolist();
+
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Storage storage)
+        public async Task<IActionResult> Create(StorageDto storage)
         {
-            await _storage.Create(storage);
+
+            var storage1= await _storage.Create(storage);
+            if (storage1== null)
+            {
+                TempData["AlertMessage"] = "can NOT add with this size unit (size unit is larger than warehouse)";
+
+
+
+                return View();
+            }
 
             return Redirect("/storage/index");
         }

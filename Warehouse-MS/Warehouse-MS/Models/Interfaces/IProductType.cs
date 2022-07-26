@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,10 @@ namespace Warehouse_MS.Models.Interfaces
     {
         // method to get all ProductType
         Task<List<ProductType>> GetProductTypes();
-        
+
+        Task<List<SelectListItem>> GetProductTypesTolist();
+
+
         // method to get specific ProductType by id
         Task<ProductType> GetProductType(int id);
 

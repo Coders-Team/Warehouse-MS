@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Warehouse_MS.Models;
 using Warehouse_MS.Models.DTO;
@@ -9,10 +11,16 @@ namespace Warehouse_MS.Controllers
     public class ProductsController : Controller
     {
         private readonly IProduct _product;
+        private readonly IProductType _productType;
+        private readonly IStorageType _storageType;
+        private readonly IStorage _storage;
 
-        public ProductsController(IProduct product)
+        public ProductsController(IProduct product,IProductType productType ,IStorageType storageType,IStorage storage)
         {
             _product = product;
+            this._productType = productType;
+            this._storageType = storageType;
+            this._storage = storage;
         }
 
         // GET: Products
@@ -39,8 +47,12 @@ namespace Warehouse_MS.Controllers
 
 
         // GET: Products/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+          
+            ViewBag.ProductTypes = await _productType.GetProductTypesTolist();
+            ViewBag.StorageTypes = await _storageType.GetStorageTypesTolist();
+            ViewBag.Storages = await _storage.GetStoragesTolist();
             return View();
         }
 
@@ -51,7 +63,17 @@ namespace Warehouse_MS.Controllers
             if (ModelState.IsValid)
             {
 
-                await _product.Create(product);
+             var product1=   await _product.Create(product);
+
+                if (product1 == null)
+                {
+                    TempData["AlertMessage"] = "can NOT add with this size unit (size unit is larger than Storage)";
+
+
+
+                    return View();
+                }
+
 
                 return RedirectToAction("Index");
 
