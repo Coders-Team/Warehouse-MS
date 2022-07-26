@@ -1,75 +1,131 @@
 ﻿@model Warehouse_MS.Models.DTO.StorageDto
 @{
-    Layout = "_Empty";
+    Layout = "_Layout";
 }
 
-<h4>@Model.Name</h4>
-    <hr />
-@if(Model.Products.Count == 0)
+@*<h4>@Model.Name</h4>
+<hr />*@
+@if (Model.Products.Count == 0)
 {
     <p>No product found in this Storage</p>
 }
-else
+@*else
 {
 
-<table border=1 class="table">
-    <thead>
-        <tr>
-            <th>
-                Id
-            </th>
-            <th>
-                Name
-            </th>
-            <th>
-                ExpiredDate
-            </th>
-            <th>
-                SizeInUnit
-            </th>
-            <th>
-                Weight
-            </th>
-            <th>
-                Date
-            </th>
-            <th>
-                BarcodeNum
-            </th>
-            <th>
-                Description
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Products) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExpiredDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SizeInUnit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Weight)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BarcodeNum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-}
+    <table border=1 class="table">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    ExpiredDate
+                </th>
+                <th>
+                    SizeInUnit
+                </th>
+                <th>
+                    Weight
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    BarcodeNum
+                </th>
+                <th>
+                    Description
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Products)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExpiredDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SizeInUnit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Weight)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BarcodeNum)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}*@
+
+
+<div class="container-xxl flex-grow-2 container-p-y">
+    <div class="card">
+        <h5 class="card-header">Storage Product</h5>
+        <div class="table-responsive text-nowrap">
+            <table class="table">
+                <thead class="table-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>ExpiredDate</th>
+                        <th>SizeInUnit</th>
+                        <th>Weight</th>
+                        <th>Date</th>
+                        <th>BarcodeNum</th>
+                        <th>ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                    @foreach (var item in Model.Products)
+                    {
+                        <tr>
+                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@item.Name</strong></td>
+                            <td>@item.ExpiredDate</td>
+                            <td>@item.SizeInUnit</td>
+                            <td>
+                                <span class="badge bg-label-primary me-1">@item.Weight</span>
+                            </td>
+                            <td>
+                                @item.Date
+                            </td>
+                            <td>
+                                @item.BarcodeNum
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="/products/details?id=@item.Id"> <i class="bx bx-edit-alt me-1"> </i> Details</a>
+                                        <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.Id"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                        <a class="dropdown-item" asp-action="DeleteProduct" asp-route-id="@item.Id"><i class="bx bx-trash me-1"></i> Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

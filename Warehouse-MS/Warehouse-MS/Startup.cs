@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,12 +63,12 @@ namespace Warehouse_MS
             services.AddScoped<ITransaction, TransactionService>();
             services.AddTransient<IStorage, StorageService>();
             services.AddTransient<IWarehouse, WarehouseService>();
-            services.AddTransient<IMailService,MailService>();
+          
             services.AddHttpContextAccessor();
             services.AddControllersWithViews();
             services.AddControllers()
                    .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
