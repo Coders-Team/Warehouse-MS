@@ -76,7 +76,9 @@ else
                             <div class="card-body">
                                 <p class="card-text">@item.Description</p>
                                 <p class="card-text">@item.SizeInUnit</p>
-
+                                <a class="btn btn-primary" href="/Storage/Details?id=@item.Id">Details</a>
+                                <a class="btn btn-primary"  href="/Storage/Edit?id=@item.Id">Edit</a>
+                                <a class="btn btn-danger" href="/Storage/Delete?id=@item.Id">Delete</a>
 
 
                             </div>
@@ -85,6 +87,31 @@ else
                 </div>
 
             }
+            <div class="col">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <br>
+                            <h5 class="text-center">Add Stroage</h5>
+                            <br>
+                            
+
+                        </div>
+                        <div class="card-body">
+                            <div class="col text-center">
+
+                                <a type="button" asp-controller="Storage" asp-action="Create" class="btn bi-plus btn-icon ">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                    </svg>
+                                </a>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
  } 
