@@ -3,54 +3,155 @@
     Layout = "_Layout";
 }
 
-<h3>Edit a storage</h3>
+@*<h3>Edit a storage</h3>
 
 <form asp-controller="Storage" asp-action="Edit" method="post">
     <input hidden asp-for="@Model.Id" />
-     <label>
+    <label>
         <span>Name</span>
     </label>
     <br />
-    <input asp-for="@Model.Name"/>
+    <input asp-for="@Model.Name" />
     <br />
     <br />
     <label>
         <span>SizeInUnit</span>
     </label>
     <br />
-    <input asp-for="@Model.SizeInUnit"/>
+    <input asp-for="@Model.SizeInUnit" />
     <br />
     <br />
     <label>
         <span>LocationInWarehouse</span>
     </label>
     <br />
-    <input asp-for="@Model.LocationInWarehouse"/>
+    <input asp-for="@Model.LocationInWarehouse" />
     <br />
     <br />
     <label>
         <span>Description</span>
     </label>
     <br />
-    <input asp-for="@Model.Description"/>
+    <input asp-for="@Model.Description" />
     <br />
     <br />
     <label>
         <span>WarehouseId</span>
     </label>
     <br />
-    <input asp-for="@Model.WarehouseId"/>
+    <input asp-for="@Model.WarehouseId" />
     <br />
     <br />
     <label>
         <span>StorageTypeId</span>
     </label>
     <br />
-    <input asp-for="@Model.StorageTypeId"/>
+    <input asp-for="@Model.StorageTypeId" />
     <br />
     <br />
     <button type="submit">
-            Edit Storage
+        Edit Storage
     </button>
     <br />
-</form>
+</form>*@
+
+
+
+<div class="container-xxl flex-grow-2 container-p-y">
+    <div class="container-xxl">
+        <div class="authentication-wrapper authentication-basic container-p-y">
+            <div class="authentication-inner">
+                <!-- Register -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h4 class="mb-2">Edit Storage</h4>
+                        </div>
+                        <form asp-controller="Storage" asp-action="Edit" method="post">
+                            <input hidden asp-for="@Model.StorageTypeId" />
+                            <input hidden asp-for="@Model.WarehouseId" />
+                            <input hidden asp-for="@Model.Id" />
+
+                        
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-icon-default-fullname"> Name</label>
+                                <div class="input-group input-group-merge">
+                                    <span id="basic-icon-default-fullname2" class="input-group-text">
+
+                                        <i class='bx bx-home-alt'></i>
+                                    </span>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="basic-icon-default-fullname"
+                                           placeholder="Name"
+                                           aria-label="Name"
+                                           aria-describedby="basic-icon-default-fullname2"
+                                           asp-for="Name" />
+                                    @Html.ValidationMessageFor(x => x.Name)
+
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-icon-default-company">Description</label>
+                                <div class="input-group input-group-merge">
+                                    <span id="basic-icon-default-company2" class="input-group-text">
+                                        <i class='bx bxs-detail'></i>
+                                    </span>
+                                    <input type="text"
+                                           id="basic-icon-default-company"
+                                           class="form-control"
+                                           placeholder="Description"
+                                           aria-label="Description"
+                                           aria-describedby="basic-icon-default-company2"
+                                           asp-for="@Model.Description" />
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-icon-default-company">Location In Warehouse</label>
+                                <div class="input-group input-group-merge">
+                                    <span id="basic-icon-default-company2" class="input-group-text">
+                                        <i class="bx bx-buildings"></i>
+                                    </span>
+                                    <input type="text"
+                                           id="basic-icon-default-company"
+                                           class="form-control"
+                                           placeholder="Location"
+                                           aria-label="Location"
+                                           aria-describedby="basic-icon-default-company2"
+                                           asp-for="@Model.LocationInWarehouse" />
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-icon-default-phone"> Size In Unit</label>
+                                <div class="input-group input-group-merge">
+                                    <span id="basic-icon-default-phone2" class="input-group-text">
+                                        <i class='bx bx-area'></i>
+                                    </span>
+                                    <input type="number"
+                                           id="basic-icon-default-phone"
+                                           class="form-control phone-mask"
+                                           placeholder="SizeInUnit"
+                                           aria-label="SizeInUnit"
+                                           aria-describedby="basic-icon-default-phone2"
+                                           asp-for="@Model.SizeInUnit" />
+                                </div>
+                            </div>
+
+
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <button class="btn btn-primary w-50" type="submit">Edit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

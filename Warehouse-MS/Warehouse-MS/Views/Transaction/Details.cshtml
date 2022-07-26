@@ -3,23 +3,22 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
-    Layout = "_Empty";
+    Layout = "_Layout";
 }
-@{
+<!--@{
     ViewData["Title"] = "Transaction " + @Model.Type;
 }
 <a class="btn btn-primary btn-lg " asp-controller="Transaction" asp-action="Index"> Back </a>
 
-<br />
-
+<br />-->
 @*//// To fromat tha product data as bootstrap card*@
-<section style="background-color: #eee;">
+<!--<section style="background-color: #eee;">
     <div class="card mb-3" style="max-width: 450px;">
         <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
-             data-mdb-ripple-color="light">
-            @*<img style="height: 350px" src=@Model.ImageUri*@
+             data-mdb-ripple-color="light">-->
+@*<img style="height: 350px" src=@Model.ImageUri*@
 
-            <a href="#!">
+<!--<a href="#!">
                 <div class="mask">
                     <div class="d-flex justify-content-start align-items-end h-100"></div>
                 </div>
@@ -44,4 +43,36 @@
 
         </div>
     </div>
-</section>
+</section>-->
+
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row row-cols-1 row-cols-md-3 g-4 mb-5" style="height:20rem;">
+       
+            <div class="col">
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">@Model.Type</h5>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-text">@Model.OldLocation ==> @Model.newLocation</h6>
+                            <h6 class="card-text">
+                                @Model.UpdatedBy
+                            </h6>
+                            @*<a class="btn btn-primary" href="/Transaction/goEditView?id=@Model.Id">Update</a>*@
+
+                            <a class="btn btn-danger" href="/Transaction/Delete?id=@Model.Id">Delete</a>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        
+
+    </div>
+</div>
+

@@ -1,81 +1,134 @@
 ﻿@model IEnumerable<Warehouse_MS.Models.StorageType>
 @using Warehouse_MS.Models
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-@{
-    ViewData["Title"] = "StorageType Page";
-}
+@*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">*@
+@*@{
+        ViewData["Title"] = "StorageType Page";
+    }*@
 
 @{
-    Layout = "_Empty";
+    Layout = "_Layout";
 }
 
-<h1 class="mt-4 mb-5"><strong>All StorageType</strong></h1>
-<a class="btn btn-primary btn-lg " asp-controller="StorageType" asp-action="Index"> Back </a>
-<a class="btn btn-primary btn-lg " asp-controller="StorageType" asp-action="goAddView"> Add new StorageType </a>
-<br />
+@*<h1 class="mt-4 mb-5"><strong>All StorageType</strong></h1>
+    <a class="btn btn-primary btn-lg " asp-controller="StorageType" asp-action="Index"> Back </a>
+    <a class="btn btn-primary btn-lg " asp-controller="StorageType" asp-action="goAddView"> Add new StorageType </a>
+    <br />
 
 
 
-<br />
+    <br />
 
-@if (TempData["AlertMessage"] != null)
-{
-    <div class="alert-success" style=" color: red; height:30px ;font-size: 15px;font-family: 'Raleway Bold';">
-        <strong>Thank You ! </strong>@TempData["AlertMessage"]
+    @if (TempData["AlertMessage"] != null)
+    {
+        <div class="alert-success" style=" color: red; height:30px ;font-size: 15px;font-family: 'Raleway Bold';">
+            <strong>Thank You ! </strong>@TempData["AlertMessage"]
 
-    </div>
-}
-<br />
+        </div>
+    }
+    <br />
 
-<section style="background-color: #eee;">
-    <div class="text-center container py-5">
+    <section style="background-color: #eee;">
+        <div class="text-center container py-5">
 
-        <div class="row">
-            @foreach (StorageType storageType in Model)
-            {
+            <div class="row">
+                @foreach (StorageType storageType in Model)
+                {
 
 
 
-                @*//// To fromat tha product data as bootstrap card*@
-                <section style="background-color: #eee;">
-                    <div class="card mb-3" style="max-width: 450px;">
-                        <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
-                             data-mdb-ripple-color="light">
 
-                            <a href="#!">
-                                <div class="mask">
-                                    <div class="d-flex justify-content-start align-items-end h-100"></div>
-                                </div>
-                                <div class="hover-overlay">
-                                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                                </div>
-                            </a>
+                    <section style="background-color: #eee;">
+                        <div class="card mb-3" style="max-width: 450px;">
+                            <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                                 data-mdb-ripple-color="light">
+
+                                <a href="#!">
+                                    <div class="mask">
+                                        <div class="d-flex justify-content-start align-items-end h-100"></div>
+                                    </div>
+                                    <div class="hover-overlay">
+                                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="card-body">
+
+                                <h5 class="card-title mb-3">@storageType.Name</h5>
+
+
+                                <h6 class="mb-3">@storageType.Description</h6>
+
+                                <a asp-controller="StorageType" asp-action="Details" asp-route-id=@storageType.Id> <Button class="btn btn-primary btn-lg">storageType Details </Button></a>
+
+                                <a class="btn btn-primary btn-lg " asp-controller="StorageType" asp-action="goEditView" asp-route-id=@storageType.Id>update</a>
+                                <a class="btn btn-primary btn-lg " asp-controller="StorageType" asp-action="Delete" asp-route-id=@storageType.Id> delete </a>
+
+                            </div>
+                        </div>
+                    </section>
+
+
+                }
+
+
+            </div>
+        </div>
+    </section>*@
+
+
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row row-cols-1 row-cols-md-3 g-4 mb-5" style="height:20rem;">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <h6 class="card-subtitle text-muted">@item.Description</h6>
                         </div>
                         <div class="card-body">
 
-                            <h5 class="card-title mb-3">@storageType.Name</h5>
+                            <a class="btn btn-primary" href="/StorageType/Details?id=@item.Id">Details</a>
+                            <a class="btn btn-primary" href="/StorageType/goEditView?id=@item.Id">Edit</a>
+                            <a class="btn btn-danger" href="/StorageType/Delete?id=@item.Id">Delete</a>
 
 
-                            <h6 class="mb-3">@storageType.Description</h6>
-
-                            <a asp-controller="StorageType" asp-action="Details" asp-route-id=@storageType.Id> <Button class="btn btn-primary btn-lg">storageType Details </Button></a>
-
-                            <a class="btn btn-primary btn-lg " asp-controller="StorageType" asp-action="goEditView" asp-route-id=@storageType.Id>update</a>
-                            <a class="btn btn-primary btn-lg " asp-controller="StorageType" asp-action="Delete" asp-route-id=@storageType.Id> delete </a>
 
                         </div>
                     </div>
-                </section>
+                </div>
+            </div>
 
+        }
 
-            }
+        <div class="col">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="text-center">Add Storage Type</h5>
 
+                    </div>
+                    <div class="card-body">
+                        <div class="col text-center">
 
+                            <a type="button" href="/StorageType/goaddview" class="btn bi-plus btn-icon ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                </svg>
+                            </a>
+                          
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</section>
 
+    </div>
+</div>
 
 
 

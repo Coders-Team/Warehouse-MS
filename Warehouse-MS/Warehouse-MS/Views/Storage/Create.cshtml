@@ -1,61 +1,189 @@
 ﻿@model Warehouse_MS.Models.Storage
-@{ Layout = "_Empty"; }
-<h3>Add a new Storage</h3>
-
-@if (TempData["AlertMessage"] != null)
-{
-    <div class="alert-success" style=" color: red; height:30px ;font-size: 15px;font-family: 'Raleway Bold';">
-        @TempData["AlertMessage"]
-
-    </div>
+@{
+    Layout = "_Layout";
 }
-<a class="btn btn-danger"  asp-controller="Storage" asp-action="Index">Back</a>
+@*<h3>Add a new Storage</h3>
 
-<form asp-controller="Storage" asp-action="Create" method="post">
-    <label>
-        <span>Name</span>
-    </label>
-    <br />
-    <input asp-for="@Model.Name" />
-    <br />
-    <br />
-    <label>
-        <span>SizeInUnit</span>
-    </label>
-    <br />
-    <input asp-for="@Model.SizeInUnit" />
-    <br />
-    <br />
-    <label>
-        <span>LocationInWarehouse</span>
-    </label>
-    <br />
-    <input asp-for="@Model.LocationInWarehouse" />
-    <br />
-    <br />
-    <label>
-        <span>Description</span>
-    </label>
-    <br />
-    <input asp-for="@Model.Description" />
-    <br />
-    <br />
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">warehouses</label>
-        <select asp-for="@Model.WarehouseId" asp-items="ViewBag.warehouses"></select>
+    <form asp-controller="Storage" asp-action="Create" method="post">
+        <label>
+            <span>Name</span>
+        </label>
+        <br />
+        <input asp-for="@Model.Name"/>
+        <br />
+        <br />
+        <label>
+            <span>SizeInUnit</span>
+        </label>
+        <br />
+        <input asp-for="@Model.SizeInUnit"/>
+        <br />
+        <br />
+        <label>
+            <span>LocationInWarehouse</span>
+        </label>
+        <br />
+        <input asp-for="@Model.LocationInWarehouse"/>
+        <br />
+        <br />
+        <label>
+            <span>Description</span>
+        </label>
+        <br />
+        <input asp-for="@Model.Description"/>
+        <br />
+        <br />
+        <label>
+            <span>WarehouseId</span>
+        </label>
+        <br />
+        <input asp-for="@Model.WarehouseId"/>
+        <br />
+        <br />
+        <label>
+            <span>StorageTypeId</span>
+        </label>
+        <br />
+        <input asp-for="@Model.StorageTypeId"/>
+        <br />
+        <br />
+        <button type="submit">
+                Add Storage
+        </button>
+        <br />
+    </form>*@
 
+
+<div class="container-xxl flex-grow-2 container-p-y">
+    <div class="container-xxl">
+        <div class="authentication-wrapper authentication-basic container-p-y">
+            <div class="authentication-inner">
+                <!-- Register -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <h4 class="mb-2">Edit Storage</h4>
+                        </div>
+                        <form asp-controller="Storage" asp-action="Create" method="post">
+                          
+
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-icon-default-fullname"> Name</label>
+                                <div class="input-group input-group-merge">
+                                    <span id="basic-icon-default-fullname2" class="input-group-text">
+
+                                        <i class='bx bx-home-alt'></i>
+                                    </span>
+                                    <input type="text"
+                                           class="form-control"
+                                           id="basic-icon-default-fullname"
+                                           placeholder="Name"
+                                           aria-label="Name"
+                                           aria-describedby="basic-icon-default-fullname2"
+                                           asp-for="Name" />
+                                    @Html.ValidationMessageFor(x => x.Name)
+
+                                </div>
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-icon-default-fullname"> Storage Type Id</label>
+                                <div class="input-group input-group-merge">
+                                    <span id="basic-icon-default-fullname2" class="input-group-text">
+
+                                        <i class='bx bx-home-alt'></i>
+                                    </span>
+                                    <input type="number"
+                                           class="form-control"
+                                           id="basic-icon-default-fullname"
+                                           placeholder="Storage Type Id"
+                                           aria-label="Storage Type Id"
+                                           aria-describedby="basic-icon-default-fullname2"
+                                           asp-for="StorageTypeId" />
+
+
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-icon-default-fullname">Warehouse Id</label>
+                                <div class="input-group input-group-merge">
+                                    <span id="basic-icon-default-fullname2" class="input-group-text">
+
+                                        <i class='bx bx-home-alt'></i>
+                                    </span>
+                                    <input type="number"
+                                           class="form-control"
+                                           id="basic-icon-default-fullname"
+                                           placeholder="Warehouse Id"
+                                           aria-label="Warehouse Id"
+                                           aria-describedby="basic-icon-default-fullname2"
+                                           asp-for="WarehouseId" />
+
+
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-icon-default-company">Description</label>
+                                <div class="input-group input-group-merge">
+                                    <span id="basic-icon-default-company2" class="input-group-text">
+                                        <i class='bx bxs-detail'></i>
+                                    </span>
+                                    <input type="text"
+                                           id="basic-icon-default-company"
+                                           class="form-control"
+                                           placeholder="Description"
+                                           aria-label="Description"
+                                           aria-describedby="basic-icon-default-company2"
+                                           asp-for="@Model.Description" />
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-icon-default-company">Location In Warehouse</label>
+                                <div class="input-group input-group-merge">
+                                    <span id="basic-icon-default-company2" class="input-group-text">
+                                        <i class="bx bx-buildings"></i>
+                                    </span>
+                                    <input type="text"
+                                           id="basic-icon-default-company"
+                                           class="form-control"
+                                           placeholder="Location"
+                                           aria-label="Location"
+                                           aria-describedby="basic-icon-default-company2"
+                                           asp-for="@Model.LocationInWarehouse" />
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-icon-default-phone"> Size In Unit</label>
+                                <div class="input-group input-group-merge">
+                                    <span id="basic-icon-default-phone2" class="input-group-text">
+                                        <i class='bx bx-area'></i>
+                                    </span>
+                                    <input type="number"
+                                           id="basic-icon-default-phone"
+                                           class="form-control phone-mask"
+                                           placeholder="SizeInUnit"
+                                           aria-label="SizeInUnit"
+                                           aria-describedby="basic-icon-default-phone2"
+                                           asp-for="@Model.SizeInUnit" />
+                                </div>
+                            </div>
+
+
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col text-center">
+                                        <button class="btn btn-primary w-50" type="submit">Create</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <br />
-    <label>
-        <span>StorageTypeId</span>
-    </label>
-    <br />
-    <input asp-for="@Model.StorageTypeId" />
-    <br />
-    <br />
-    <button type="submit">
-        Add Storage
-    </button>
-    <br />
-</form>
+</div>

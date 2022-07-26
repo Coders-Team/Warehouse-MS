@@ -43,14 +43,14 @@ namespace Warehouse_MS.Controllers
                 return View("Error");
             }
             ViewBag.flagReqType = "Edit";
-            return View("AddEditView",storageType);
+            return View("Edit", storageType);
         }
         public async Task<IActionResult> goAddView()
         {
             ViewBag.flagReqType = "add";
 
 
-            return View("AddEditView");
+            return View("Add");
         }
 
 
@@ -75,7 +75,7 @@ namespace Warehouse_MS.Controllers
             else
             {
 
-                return View("AddEditView");
+                return View("Edit");
             }
         }
 
@@ -95,7 +95,7 @@ namespace Warehouse_MS.Controllers
             else
             {
 
-                return View("AddEditView");
+                return View("Add");
             }
 
         }
