@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Warehouse_MS.Data;
 using Warehouse_MS.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Warehouse_MS.Models.Services
 {
@@ -54,7 +55,16 @@ namespace Warehouse_MS.Models.Services
         {
             return await _context.ProductType.ToListAsync();
         }
+        public async Task<List<SelectListItem>> GetProductTypesTolist()
+        {
 
+            return await _context.ProductType.Select(i => new SelectListItem
+             {
+                 Value = i.Id.ToString(),
+                 Text = i.Name
+             }).ToListAsync();
+
+        }
 
 
         // method to get all productType by id
@@ -74,5 +84,7 @@ namespace Warehouse_MS.Models.Services
             await _context.SaveChangesAsync();
             return productType;
          }
+
+      
     }
 }

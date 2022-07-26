@@ -24,7 +24,14 @@ namespace Warehouse_MS.Models.Services
             this._transaction = transaction;
         }
 
-    public async Task<ProductDto> Create(ProductDto productDto) { 
+    public async Task<ProductDto> Create(ProductDto productDto) {
+
+            int? newSize = await SizeisOk(productDto.SizeInUnit, productDto.StorageId);
+
+            if (newSize == null)
+            {
+                return null;
+            }
 
             Product product = new Product() {
                 Name = productDto.Name,
@@ -32,10 +39,10 @@ namespace Warehouse_MS.Models.Services
                 StorageTypeId = productDto.StorageTypeId,
                 StorageId = productDto.StorageId,
                 Weight =productDto.Weight,
-                Date=productDto.Date,
-                ExpiredDate = productDto.ExpiredDate,
+                Date=DateTime.Now,
+                ExpiredDate = productDto.ExpiredDate,//ToString("MM/dd/yyyy"),
                 BarcodeNum = GenerateBarCode().Result,
-                SizeInUnit =productDto.SizeInUnit,
+                SizeInUnit = (int)newSize,
                 Photo = null,
                 Description =productDto.Description
             };
@@ -54,6 +61,7 @@ namespace Warehouse_MS.Models.Services
             {
                 OldLocation = "same location",
                 NewLocation = "same location",
+                //product.Storage.Name
                 Type = "add",
                 ProductId = product.Id,
 
@@ -63,8 +71,42 @@ namespace Warehouse_MS.Models.Services
 
 
             return productDto;
-
+            
     }
+     
+        /// <summary>
+        ///  to chech if the total product size is less than storage
+        /// </summary>
+        /// <param name="sizeInUnit"></param>
+        /// <param name="storageId"></param>
+        /// <returns></returns>
+        private async Task<int?> SizeisOk(int sizeInUnit, int storageId)
+        {
+            Storage storage = await _context.Storage.FindAsync(storageId);
+            if (storage == null)
+            {
+                return null;
+            }
+
+            int totalStze = 0;
+            if (storage.Products != null)
+            {
+                foreach (Product product in storage.Products)
+                {
+                    totalStze += product.SizeInUnit;
+
+                }
+
+            }
+            if (totalStze + sizeInUnit > storage.SizeInUnit)
+            {
+                return null;
+            }
+            return sizeInUnit;
+
+
+
+        }
 
         public async Task DeleteProduct(int Id)
         {

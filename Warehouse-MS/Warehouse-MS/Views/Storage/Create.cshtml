@@ -1,54 +1,61 @@
 ﻿@model Warehouse_MS.Models.Storage
-@{
-    Layout = "_Empty";
-}
+@{ Layout = "_Empty"; }
 <h3>Add a new Storage</h3>
+
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert-success" style=" color: red; height:30px ;font-size: 15px;font-family: 'Raleway Bold';">
+        @TempData["AlertMessage"]
+
+    </div>
+}
+<a class="btn btn-danger"  asp-controller="Storage" asp-action="Index">Back</a>
 
 <form asp-controller="Storage" asp-action="Create" method="post">
     <label>
         <span>Name</span>
     </label>
     <br />
-    <input asp-for="@Model.Name"/>
+    <input asp-for="@Model.Name" />
     <br />
     <br />
     <label>
         <span>SizeInUnit</span>
     </label>
     <br />
-    <input asp-for="@Model.SizeInUnit"/>
+    <input asp-for="@Model.SizeInUnit" />
     <br />
     <br />
     <label>
         <span>LocationInWarehouse</span>
     </label>
     <br />
-    <input asp-for="@Model.LocationInWarehouse"/>
+    <input asp-for="@Model.LocationInWarehouse" />
     <br />
     <br />
     <label>
         <span>Description</span>
     </label>
     <br />
-    <input asp-for="@Model.Description"/>
+    <input asp-for="@Model.Description" />
     <br />
     <br />
-    <label>
-        <span>WarehouseId</span>
-    </label>
-    <br />
-    <input asp-for="@Model.WarehouseId"/>
-    <br />
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">warehouses</label>
+        <select asp-for="@Model.WarehouseId" asp-items="ViewBag.warehouses"></select>
+
+    </div>
+
     <br />
     <label>
         <span>StorageTypeId</span>
     </label>
     <br />
-    <input asp-for="@Model.StorageTypeId"/>
+    <input asp-for="@Model.StorageTypeId" />
     <br />
     <br />
     <button type="submit">
-            Add Storage
+        Add Storage
     </button>
     <br />
 </form>

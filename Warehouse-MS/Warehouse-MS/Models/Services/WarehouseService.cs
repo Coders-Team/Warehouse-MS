@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -78,6 +79,16 @@ namespace Warehouse_MS.Models.Services
                     WarehouseId = s.WarehouseId,
                     StorageTypeId = s.StorageTypeId
                 }).ToList()
+            }).ToListAsync();
+        }
+
+        public async Task<List<SelectListItem>> GetWarehouseTolist()
+        {
+
+            return await _context.Warehouse.Select(i => new SelectListItem
+            {
+                Value = i.Id.ToString(),
+                Text = i.Name
             }).ToListAsync();
         }
 

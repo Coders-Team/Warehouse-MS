@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Warehouse_MS.Models.DTO;
 
@@ -8,6 +9,8 @@ namespace Warehouse_MS.Models.Interfaces
     {
         // method to get all Warehouses
         Task<List<WarehouseDto>> GetWarehouses();
+
+        Task<List<SelectListItem>> GetWarehouseTolist();
 
         // method to get specific Warehouse by id
         Task<WarehouseDto> GetWarehouse(int id);

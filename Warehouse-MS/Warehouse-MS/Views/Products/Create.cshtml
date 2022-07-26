@@ -8,7 +8,13 @@
 
 
 <h3>Add A New Product</h3>
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert-success" style=" color: red; height:30px ;font-size: 15px;font-family: 'Raleway Bold';">
+        @TempData["AlertMessage"]
 
+    </div>
+}
 <form asp-controller="Products" asp-action="Create" method="post" enctype="multipart/form-data">
 
     <div class="mb-3">
@@ -22,62 +28,42 @@
     </div>
 
     <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Date</label>
-        <input asp-for="@Model.Date" class="form-control" id="exampleFormControlInput1">
-    </div>
-
-    <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">ExpiredDate</label>
         <input asp-for="@Model.ExpiredDate" class="form-control" id="exampleFormControlInput1">
     </div>
 
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Photo</label>
-        <input asp-for="@Model.Photo" class="form-control" id="exampleFormControlInput1">
-    </div>
+
+
+
 
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">ProductType</label>
-        <input asp-for="@Model.ProductType" class="form-control" id="exampleFormControlInput1">
+        <select asp-for="@Model.ProductTypeId" asp-items="ViewBag.ProductTypes"></select>
     </div>
 
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">ProductTypeId</label>
-        <input asp-for="@Model.ProductTypeId" class="form-control" id="exampleFormControlInput1">
-    </div>
 
     <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">SizeInUnit</label>
+        <label for="exampleFormControlInput1" class="form-label">Size In Unit</label>
         <input asp-for="@Model.SizeInUnit" class="form-control" id="exampleFormControlInput1">
     </div>
 
 
+
+
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Storage</label>
-        <input asp-for="@Model.Storage" class="form-control" id="exampleFormControlInput1">
+        <select asp-for="@Model.StorageId" asp-items="ViewBag.Storages"></select>
+
     </div>
 
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">StorageId</label>
-        <input asp-for="@Model.StorageId" class="form-control" id="exampleFormControlInput1">
-    </div>
 
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">StorageType</label>
-        <input asp-for="@Model.StorageType" class="form-control" id="exampleFormControlInput1">
-    </div>
 
 
     <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">StorageTypeId</label>
-        <input asp-for="@Model.StorageTypeId" class="form-control" id="exampleFormControlInput1">
+        <label for="exampleFormControlInput1" class="form-label">Storage Type</label>
+        <select asp-for="@Model.StorageTypeId" asp-items="ViewBag.StorageTypes"></select>
     </div>
 
-
-    <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Transaction</label>
-        <input asp-for="@Model.Transaction" class="form-control" id="exampleFormControlInput1">
-    </div>
 
 
     <div class="mb-3">

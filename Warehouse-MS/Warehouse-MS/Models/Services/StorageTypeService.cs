@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Warehouse_MS.Data;
 using Warehouse_MS.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq;
 
 namespace Warehouse_MS.Models.Services
 {
@@ -52,7 +54,16 @@ namespace Warehouse_MS.Models.Services
             return await _context.StorageType.ToListAsync();
         }
 
+        public async Task<List<SelectListItem>> GetStorageTypesTolist()
+        {
 
+            return await _context.StorageType.Select(i => new SelectListItem
+            {
+                Value = i.Id.ToString(),
+                Text = i.Name
+            }).ToListAsync();
+
+        }
 
         // method to get all StorageType by id
 

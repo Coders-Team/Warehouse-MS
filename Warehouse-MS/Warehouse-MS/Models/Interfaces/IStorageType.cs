@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,8 @@ namespace Warehouse_MS.Models.Interfaces
         // method to get all StorageType
         Task<List<StorageType>> GetStorageTypes();
 
-        
+        Task<List<SelectListItem>> GetStorageTypesTolist();
+
         // method to get specific StorageType by id
         Task<StorageType> GetStorageType(int id);
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,28 +16,73 @@ namespace Warehouse_MS.Models.Services
         private readonly WarehouseDBContext _context;
         private readonly ITransaction _transaction;
         private readonly IProduct _product;
+        private readonly IWarehouse _warehouse;
 
-        public StorageService(WarehouseDBContext context, ITransaction transaction, IProduct product)
+        public StorageService(WarehouseDBContext context, ITransaction transaction, IProduct product,IWarehouse warehouse)
         {
             _context = context;
             this._transaction = transaction;
             this._product = product;
+            this._warehouse = warehouse;
         }
 
-        public async Task<StorageDto> Create(Storage storage)
+        public async Task<Storage> Create(StorageDto storageDto)
         {
+            int? newSize = SizewarehouseisOk(storageDto.SizeInUnit, storageDto.WarehouseId).Result;
+
+            if (newSize == null)
+            {
+                return null;
+            }
+
+            Storage storage = new Storage()
+            {
+                Name = storageDto.Name,
+                StorageTypeId = storageDto.StorageTypeId,
+                WarehouseId = storageDto.WarehouseId,
+                SizeInUnit = (int)newSize,
+                LocationInWarehouse = storageDto.LocationInWarehouse,
+                Description = storageDto.Description
+
+
+            };
+
             _context.Entry(storage).State = EntityState.Added;
             await _context.SaveChangesAsync();
-            StorageDto storageDto = new StorageDto
-            {
-                Id = storage.Id,
-                Name = storage.Name,
-                SizeInUnit = storage.SizeInUnit,
-                LocationInWarehouse = storage.LocationInWarehouse,
-                Description = storage.Description
-            };
-            return storageDto;
+
+            return storage;
+
         }
+
+        /// <summary>
+        /// to chech if the total storage size is less than warehouse 
+        /// </summary>
+        /// <param name="sizeInUnit"></param>
+        /// <param name="warehouseId"></param>
+        /// <returns></returns>
+        private async Task<int?> SizewarehouseisOk(int sizeInUnit, int warehouseId)
+        {
+
+            WarehouseDto warehouse = await _warehouse.GetWarehouse(warehouseId);
+            if (warehouse == null)
+            {
+                return null;
+            }
+
+            int totalStze = 0;
+            foreach (StorageDto storge in warehouse.Storages)
+            {
+                totalStze += storge.SizeInUnit;
+
+            }
+            if (totalStze + sizeInUnit > warehouse.SizeInUnit)
+            {
+                return null;
+            }
+            return sizeInUnit;
+
+        }
+
         public async Task<StorageDto> GetStorage(int id)
         {
             return await _context.Storage.Select(storage => new StorageDto
@@ -67,35 +113,33 @@ namespace Warehouse_MS.Models.Services
             }).FirstOrDefaultAsync(a => a.Id == id);
         }
 
-        public async Task<List<StorageDto>> GetStorages()
+        public async Task<List<WarehouseDto>> GetStorages(string WarehouseId)
         {
-            return await _context.Storage.Select(storage => new StorageDto
-            {
-                Id = storage.Id,
-                Name = storage.Name,
-                SizeInUnit = storage.SizeInUnit,
-                LocationInWarehouse = storage.LocationInWarehouse,
-                Description = storage.Description,
-                WarehouseId = storage.WarehouseId,
-                StorageTypeId = storage.StorageTypeId,
-                Products = storage.Products.Select(product => new ProductDto2
-                {
-                    Id = product.Id,
-                    Name = product.Name,
-                    SizeInUnit = product.SizeInUnit,
-                    StorageId = product.StorageId,
-                    ProductTypeId = product.ProductTypeId,
-                    StorageTypeId = product.StorageTypeId,
-                    Date = product.Date,
-                    ExpiredDate = product.ExpiredDate,
-                    Weight = product.Weight,
-                    BarcodeNum = product.BarcodeNum,
-                    Photo = product.Photo,
-                    Description = product.Description
-                }).ToList()
-            }).ToListAsync();
-        }
 
+            List<WarehouseDto> listWarehouses= _warehouse.GetUserWarehouse(WarehouseId).Result;
+
+
+
+            return listWarehouses;
+          
+        }
+        public async Task<List<SelectListItem>> GetStoragesTolist()
+        {
+
+            return await _context.Storage.Select(i => new SelectListItem
+            {
+                Value = i.Id.ToString(),
+                Text = i.Name
+            }).ToListAsync();
+           // return await _context.Warehouse.Select(
+           //    x => x.Storages.Select(i => new SelectListItem
+           //    {
+           //        Value = i.Id.ToString(),
+           //        Text = i.Name
+           //    }).ToList()
+
+           //).Where(x => x.).ToListAsync();
+        }
         public async Task<Storage> UpdateStorage(int id, Storage storage)
         {
             _context.Entry(storage).State = EntityState.Modified;
@@ -161,18 +205,6 @@ namespace Warehouse_MS.Models.Services
             return product;
         }
         /// <summary>
-        /// to get storage type by storageId
-        /// </summary>
-        /// <param name="storageId"></param>
-        /// <returns></returns>
-        private async Task<int> GetStorageTypeId(int storageId)
-        {
-            Storage storage = await _context.Storage.FindAsync(storageId);
-
-            return storage.StorageTypeId;
-        }
-
-        /// <summary>
         ///  to chech if the total product size is less than storage
         /// </summary>
         /// <param name="sizeInUnit"></param>
@@ -206,6 +238,19 @@ namespace Warehouse_MS.Models.Services
 
         }
 
+        /// <summary>
+        /// to get storage type by storageId
+        /// </summary>
+        /// <param name="storageId"></param>
+        /// <returns></returns>
+        private async Task<int> GetStorageTypeId(int storageId)
+        {
+            Storage storage = await _context.Storage.FindAsync(storageId);
+
+            return storage.StorageTypeId;
+        }
+
+       
         public async Task<Product> RemoveProductStorage(int productId)
         {
             Product product = await _context.Product.FirstOrDefaultAsync(c => c.Id == productId);
