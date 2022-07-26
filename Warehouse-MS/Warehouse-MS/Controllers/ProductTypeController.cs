@@ -42,14 +42,14 @@ namespace Warehouse_MS.Controllers
                 return View("Error");
             }
             ViewBag.flagReqType = "Edit";
-            return View("AddEditView", productType);
+            return View("Edit", productType);
         }
         public async Task<IActionResult> goAddView()
         {
             ViewBag.flagReqType = "add";
 
 
-            return View("AddEditView");
+            return View("Add");
         }
 
 

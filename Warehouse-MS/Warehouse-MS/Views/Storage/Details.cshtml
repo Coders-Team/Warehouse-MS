@@ -93,6 +93,7 @@
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
+                
                     @foreach (var item in Model.Products)
                     {
                         <tr>
@@ -114,9 +115,11 @@
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="/products/details?id=@item.Id"> <i class="bx bx-edit-alt me-1"> </i> Details</a>
-                                        <a class="dropdown-item" asp-action="Edit" asp-route-id="@item.Id"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                        <a class="dropdown-item" asp-action="DeleteProduct" asp-route-id="@item.Id"><i class="bx bx-trash me-1"></i> Delete</a>
+                                        <a class="dropdown-item" href="/products/details?id=@item.Id"> <i class='bx bxs-detail'></i> Details</a>
+                                        <a class="dropdown-item" href="/products/Edit?id=@item.Id"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                        <a class="dropdown-item" href="/products/Delete?id=@item.Id"><i class="bx bx-trash me-1"></i> Delete</a>
+                                        <a class="dropdown-item" href="/products/Create"><i class="bx bx-add-to-queue me-1"></i> Add Product</a>
+
                                     </div>
                                 </div>
                             </td>
@@ -124,7 +127,18 @@
 
                     }
 
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    
+                
+
+
                 </tbody>
+            
             </table>
         </div>
     </div>

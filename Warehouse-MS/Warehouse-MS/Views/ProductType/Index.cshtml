@@ -2,20 +2,20 @@
 @using Warehouse_MS.Models
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
-    Layout = "_Empty";
+    Layout = "_Layout";
 }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-@{
-    ViewData["Title"] = "ProductType Page";
-}
+@*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    @{
+        ViewData["Title"] = "ProductType Page";
+    }
 
 
 
-<h1 class="mt-4 mb-5"><strong>All ProductType</strong></h1>
-<a class="btn btn-primary btn-lg " asp-controller="ProductType" asp-action="Index"> Back </a>
-<a class="btn btn-primary btn-lg " asp-controller="ProductType" asp-action="goAddView"> Add new ProductType </a>
-<br />
+    <h1 class="mt-4 mb-5"><strong>All ProductType</strong></h1>
+    <a class="btn btn-primary btn-lg " asp-controller="ProductType" asp-action="Index"> Back </a>
+    <a class="btn btn-primary btn-lg " asp-controller="ProductType" asp-action="goAddView"> Add new ProductType </a>
+    <br />*@
 
 
 
@@ -23,24 +23,21 @@
 
 @if (TempData["AlertMessage"] != null)
 {
-    <div class="alert-success" style=" color: red; height:30px ;font-size: 15px;font-family: 'Raleway Bold';">
-        <strong>Thank You ! </strong>@TempData["AlertMessage"]
+<div class="alert alert-primary" role="alert">
+    <strong>Thank You ! </strong>@TempData["AlertMessage"]
 
-    </div>
+</div>
 }
 <br />
 
-<section style="background-color: #eee;">
+@*<section style="background-color: #eee;">
     <div class="text-center container py-5">
 
         <div class="row">
             @foreach (ProductType productType in Model)
             {
-
-
-
-                @*//// To fromat tha product data as bootstrap card*@
-                <section style="background-color: #eee;">
+              
+<section style="background-color: #eee;">
                     <div class="card mb-3" style="max-width: 450px;">
                         <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
                              data-mdb-ripple-color="light">
@@ -75,7 +72,64 @@
 
         </div>
     </div>
-</section>
+</section>*@
+
+
+
+
+
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row row-cols-1 row-cols-md-3 g-4 mb-5" style="height:20rem;">
+        @foreach (ProductType productType in Model)
+        {
+            <div class="col">
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">@productType.Name</h5>
+                            <h6 class="card-subtitle text-muted">@productType.Description</h6>
+                        </div>
+                        <div class="card-body">
+
+
+                            <a class="btn btn-primary" href="/ProductType/goEditView?id=@productType.Id">Edit</a>
+                            <a class="btn btn-danger" href="/ProductType/Delete?id=@productType.Id">Delete</a>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+        <div class="col">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="text-center">Add Product Type</h5>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="col text-center">
+
+                            <a type="button" href="/ProductType/goaddview" class="btn bi-plus btn-icon ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                </svg>
+                            </a>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 
 

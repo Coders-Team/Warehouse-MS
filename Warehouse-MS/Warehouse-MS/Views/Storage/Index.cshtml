@@ -1,67 +1,9 @@
-﻿
-@using Warehouse_MS.Models.DTO
+﻿@using Warehouse_MS.Models.DTO
 @model List<WarehouseDto>
-@{ Layout = "_Empty"; }
-<h4>Storage Page</h4>
-<hr />
-<p>
-    <a asp-controller="Storage" asp-action="Create">Create New</a>
-</p>
-
-
-
-
-<section style="background-color: #eee;">
-    <div class="text-center container py-5">
-
-        <div class="row">
-            @foreach (WarehouseDto warehouseDto in Model)
-            {
-                <h2>@warehouseDto.Name</h2>
-                <br>
-        @foreach (StorageDto storageDto in warehouseDto.Storages)
-        {
-        <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card">
-                <div class="card-body">
-
-                    <h5 class="card-title mb-3">Name: @storageDto.Name</h5>
-                    <h5 class="card-title mb-3">Size: @storageDto.SizeInUnit</h5>
-                    <h6 class="card-title mb-3">Location in: @storageDto.LocationInWarehouse</h6>
-                    <h6 class="mb-3">Description: @storageDto.Description</h6>
-                    <a class="btn btn-primary" asp-controller="Storage" asp-action="Details" asp-route-id=@storageDto.Id>Details</a>
-                    <a class="btn btn-primary" asp-controller="Storage" asp-action="Edit" asp-route-id=@storageDto.Id>Edit</a>
-
-
-                    <a  class="btn btn-danger" asp-controller="Storage" asp-action="Delete" asp-route-id=@storageDto.Id>Delete</a>
-                   
-
-
-                 
-
-
-                </div>
-            </div>
-        </div>          }
-
-            }
-                    </div>
-    </div>
-</section>
-
-
-
-
-
-
-
-
-@*@using Warehouse_MS.Models.DTO
-    @model List<StorageDto>
-    @{
-        Layout = "_Empty";
-    }
-    <h4>Storage Page</h4>
+@{
+    Layout = "_Layout";
+}
+@*<h4>Storage Page</h4>
         <hr />
     <p>
         <a asp-controller="Storage" asp-action="Create">Create New</a>
@@ -126,3 +68,34 @@
     }
         </tbody>
     </table>*@
+
+
+@*<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row row-cols-1 row-cols-md-3 g-4 mb-5" style="height:20rem;">
+        @foreach (WarehouseDto item in Model )
+        {
+            <div class="col">
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">@item..Name</h5>
+                            <h6 class="card-subtitle text-muted">@item.LocationInWarehouse</h6>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">@item.Description</p>
+                            <p class="card-text">@item.SizeInUnit</p>
+                            <a class="btn btn-primary" href="/Storage/Details?id=@item.Id">Details</a>
+                            <a class="btn btn-primary" href="/Storage/Edit?id=@item.Id">Edit</a>
+                            <a class="btn btn-danger" href="/Storage/Delete?id=@item.Id">Delete</a>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+    </div>
+</div>*@
+

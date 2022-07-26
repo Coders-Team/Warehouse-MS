@@ -55,7 +55,7 @@ namespace Warehouse_MS.Controllers
                 return View();
             }
 
-            return Redirect("/storage/index");
+            return Redirect("/warehouse");
         }
         public async Task<ActionResult<Storage>> Edit(int id)
         {
@@ -80,7 +80,7 @@ namespace Warehouse_MS.Controllers
         {
             await _storage.UpdateStorage(id , storage);
 
-            return Redirect("/storage/index");
+            return Redirect("/warehouse");
         }
 
         public async Task<ActionResult> Delete(int id)

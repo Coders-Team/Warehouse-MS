@@ -1,18 +1,8 @@
-﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model Warehouse_MS.Models.Warehouse
-@{
-    Layout = "_layout";
-}
-@*<h3>Add a new warehouse</h3>
+﻿
 
-<form asp-controller="Warehouse" asp-action="Create" method="post" enctype="multipart/form-data">
-    <partial name="_WarehouseFields"></partial>
+@model Warehouse_MS.Models.StorageType
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-    <button type="submit">
-            Add Warehouse
-    </button>
-    <br />
-</form>*@
 
 
 
@@ -24,15 +14,20 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="text-center">
-                            <h4 class="mb-2">Add new Warehouse</h4>
+                            <h4 class="mb-2">Add Storage Type</h4>
                         </div>
-                        <form asp-controller="Warehouse" asp-action="Create" method="post" enctype="multipart/form-data">
+                        <form asp-controller="StorageType" asp-action="Edit" method="post">
+
+                            <input hidden asp-for="@Model.Id" />
+
+
+
 
                             <div class="mb-3">
                                 <label class="form-label" for="basic-icon-default-fullname"> Name</label>
                                 <div class="input-group input-group-merge">
                                     <span id="basic-icon-default-fullname2" class="input-group-text">
-                                       
+
                                         <i class='bx bx-home-alt'></i>
                                     </span>
                                     <input type="text"
@@ -41,7 +36,7 @@
                                            placeholder="Name"
                                            aria-label="Name"
                                            aria-describedby="basic-icon-default-fullname2"
-                                           asp-for="@Model.Name" />
+                                           asp-for="Name" />
                                     @Html.ValidationMessageFor(x => x.Name)
 
                                 </div>
@@ -63,43 +58,14 @@
                                 </div>
                             </div>
 
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-icon-default-company">Location</label>
-                                <div class="input-group input-group-merge">
-                                    <span id="basic-icon-default-company2" class="input-group-text">
-                                        <i class="bx bx-buildings"></i>
-                                    </span>
-                                    <input type="text"
-                                           id="basic-icon-default-company"
-                                           class="form-control"
-                                           placeholder="Location"
-                                           aria-label="Location"
-                                           aria-describedby="basic-icon-default-company2"
-                                           asp-for="@Model.Location" />
-                                </div>
-                            </div>
 
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-icon-default-phone"> Size In Unit</label>
-                                <div class="input-group input-group-merge">
-                                    <span id="basic-icon-default-phone2" class="input-group-text">
-                                        <i class='bx bx-area'></i>
-                                    </span>
-                                    <input type="number"
-                                           id="basic-icon-default-phone"
-                                           class="form-control phone-mask"
-                                           placeholder="SizeInUnit"
-                                           aria-label="SizeInUnit"
-                                           aria-describedby="basic-icon-default-phone2"
-                                           asp-for="@Model.SizeInUnit" />
-                                </div>
-                            </div>
+
 
 
                             <div class="container">
                                 <div class="row">
                                     <div class="col text-center">
-                                        <button class="btn btn-primary w-50" type="submit">Create</button>
+                                        <button class="btn btn-primary w-50" type="submit">Edit</button>
                                     </div>
                                 </div>
                             </div>
