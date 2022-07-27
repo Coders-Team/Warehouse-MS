@@ -28,23 +28,14 @@ namespace Warehouse_MS.Models.Services
 
         public async Task<Storage> Create(StorageDto storageDto)
         {
-            int? newSize = SizewarehouseisOk(storageDto.SizeInUnit, storageDto.WarehouseId).Result;
-
-            if (newSize == null)
-            {
-                return null;
-            }
-
             Storage storage = new Storage()
             {
                 Name = storageDto.Name,
-                StorageTypeId = storageDto.StorageTypeId,
+                StorageTypeId = 1,
                 WarehouseId = storageDto.WarehouseId,
-                SizeInUnit = (int)newSize,
+                SizeInUnit = storageDto.SizeInUnit,
                 LocationInWarehouse = storageDto.LocationInWarehouse,
                 Description = storageDto.Description
-
-
             };
 
             _context.Entry(storage).State = EntityState.Added;
@@ -53,13 +44,6 @@ namespace Warehouse_MS.Models.Services
             return storage;
 
         }
-
-        /// <summary>
-        /// to chech if the total storage size is less than warehouse 
-        /// </summary>
-        /// <param name="sizeInUnit"></param>
-        /// <param name="warehouseId"></param>
-        /// <returns></returns>
         private async Task<int?> SizewarehouseisOk(int sizeInUnit, int warehouseId)
         {
 

@@ -3,110 +3,70 @@
 @{
     Layout = "_layout";
 }
-@*<h3>Add a new warehouse</h3>
-
-<form asp-controller="Warehouse" asp-action="Create" method="post" enctype="multipart/form-data">
-    <partial name="_WarehouseFields"></partial>
-
-    <button type="submit">
-            Add Warehouse
-    </button>
-    <br />
-</form>*@
 
 
-
-<div class="container-xxl flex-grow-2 container-p-y">
-    <div class="container-xxl">
-        <div class="authentication-wrapper authentication-basic container-p-y">
-            <div class="authentication-inner">
-                <!-- Register -->
-                <div class="card">
-                    <div class="card-body">
-                        <div class="text-center">
-                            <h4 class="mb-2">Add new Warehouse</h4>
-                        </div>
-                        <form asp-controller="Warehouse" asp-action="Create" method="post" enctype="multipart/form-data">
-
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-icon-default-fullname"> Name</label>
-                                <div class="input-group input-group-merge">
-                                    <span id="basic-icon-default-fullname2" class="input-group-text">
-                                       
-                                        <i class='bx bx-home-alt'></i>
-                                    </span>
-                                    <input type="text"
-                                           class="form-control"
-                                           id="basic-icon-default-fullname"
-                                           placeholder="Name"
-                                           aria-label="Name"
-                                           aria-describedby="basic-icon-default-fullname2"
-                                           asp-for="@Model.Name" />
-                                    @Html.ValidationMessageFor(x => x.Name)
-
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-icon-default-company">Description</label>
-                                <div class="input-group input-group-merge">
-                                    <span id="basic-icon-default-company2" class="input-group-text">
-                                        <i class='bx bxs-detail'></i>
-                                    </span>
-                                    <input type="text"
+<div class="container-xxl flex-grow-1 container-p-y">
+            <div class="card mb-4">
+              <h5 class="card-header">Create Warehouse</h5>
+              <hr class="my-0" />
+              <div class="card-body">
+                <form asp-controller="Warehouse" asp-action="Create" method="post">
+                  <div class="row">
+                    <div class="mb-3 col-md-6">
+                      <label for="firstName" class="form-label">Name</label>
+                      <input type="text"
+                      class="form-control"
+                      id="basic-icon-default-fullname"
+                      placeholder="Name"
+                      aria-label="Name"
+                      aria-describedby="basic-icon-default-fullname2"
+                      asp-for="@Model.Name" />
+                    </div>
+                    <div class="mb-3 col-md-6">
+                            <label class="form-label" for="country">Location</label>
+                            <select asp-for="@Model.Location" id="country" class="select2 form-select">
+                              <option value="">Select</option>
+                              <option  value="Amman">Amman</option>
+                              <option value="Irbid">Irbid</option>
+                              <option value="Zarqa">Zarqa</option>
+                              <option value="Mafraq">Mafraq</option>
+                              <option value="Ajloun">Ajloun</option>
+                              <option value="Jerash">Jerash</option>
+                              <option value="Madaba">Madaba</option>
+                              <option value="Balqa">Balqa</option>
+                              <option value="Karak">Karak</option>
+                              <option value="Tafileh">Tafileh</option>
+                              <option value="Maan">Maan</option>
+                              <option value="Aqaba">Aqaba</option>
+                            </select>
+                          </div>
+                    <div class="mb-3 col-md-6">
+                      <label for="basic-icon-default-company" class="form-label">Description</label>
+                      <input type="text"
                                            id="basic-icon-default-company"
                                            class="form-control"
                                            placeholder="Description"
                                            aria-label="Description"
                                            aria-describedby="basic-icon-default-company2"
                                            asp-for="@Model.Description" />
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-icon-default-company">Location</label>
-                                <div class="input-group input-group-merge">
-                                    <span id="basic-icon-default-company2" class="input-group-text">
-                                        <i class="bx bx-buildings"></i>
-                                    </span>
-                                    <input type="text"
-                                           id="basic-icon-default-company"
-                                           class="form-control"
-                                           placeholder="Location"
-                                           aria-label="Location"
-                                           aria-describedby="basic-icon-default-company2"
-                                           asp-for="@Model.Location" />
-                                </div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-icon-default-phone"> Size In Unit</label>
-                                <div class="input-group input-group-merge">
-                                    <span id="basic-icon-default-phone2" class="input-group-text">
-                                        <i class='bx bx-area'></i>
-                                    </span>
-                                    <input type="number"
+                    </div>
+                    <div class="mb-3 col-md-6">
+                      <label for="organization" class="form-label">Size In Unit</label>
+                      <input type="number"
                                            id="basic-icon-default-phone"
                                            class="form-control phone-mask"
                                            placeholder="SizeInUnit"
                                            aria-label="SizeInUnit"
                                            aria-describedby="basic-icon-default-phone2"
                                            asp-for="@Model.SizeInUnit" />
-                                </div>
-                            </div>
-
-
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col text-center">
-                                        <button class="btn btn-primary w-50" type="submit">Create</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
                     </div>
+                  </div>
+                  <div class="mt-2">
+                    <button type="submit" class="btn btn-primary me-2">Save changes</button>
+                    <a href="/warehouse/index" class="btn btn-outline-secondary">Cancel</a>
+                  </div>
+                  </form>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
+              </div>
+            
+          </div>

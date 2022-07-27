@@ -35,29 +35,20 @@ namespace Warehouse_MS.Controllers
             return View(storage);
         }
 
-        public async Task<IActionResult> Create()
+        public IActionResult Create(int id)
         {
-            ViewBag.warehouses = await _warehouse.GetWarehouseTolist();
-
+            ViewData["warehouseid"] = id;
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> Create(StorageDto storage)
         {
-
             var storage1= await _storage.Create(storage);
-            if (storage1== null)
-            {
-                TempData["AlertMessage"] = "can NOT add with this size unit (size unit is larger than warehouse)";
 
-
-
-                return View();
-            }
-
-            return Redirect("/warehouse");
+            return Redirect($"/Warehouse/Details?id={storage.WarehouseId}");
         }
-        public async Task<ActionResult<Storage>> Edit(int id)
+        public async Task<ActionResult<Storage>> Edit(int id , int warehouseId)
         {
             StorageDto storageDto = await _storage.GetStorage(id);
 
@@ -68,11 +59,12 @@ namespace Warehouse_MS.Controllers
                 SizeInUnit = storageDto.SizeInUnit,
                 LocationInWarehouse = storageDto.LocationInWarehouse,
                 Description = storageDto.Description,
-                WarehouseId = storageDto.WarehouseId,
-                StorageTypeId = storageDto.StorageTypeId
+                WarehouseId = warehouseId,
+                StorageTypeId = 1
             };
+            ViewData["ss"] = warehouseId;
 
-            return View(storage);
+            return Redirect($"/Warehouse/Details?id={warehouseId}");
         }
 
         [HttpPost]
@@ -80,13 +72,13 @@ namespace Warehouse_MS.Controllers
         {
             await _storage.UpdateStorage(id , storage);
 
-            return Redirect("/warehouse");
+            return Redirect($"/Warehouse/Details?id={storage.WarehouseId}");
         }
 
         public async Task<ActionResult> Delete(int id)
         {
             await _storage.Delete(id);
-            return Redirect("/storage/index");
+            return Redirect($"/Warehouse/Details");
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Warehouse_MS.Models.Interfaces
         // method to get all StorageType
         Task<List<StorageType>> GetStorageTypes();
 
-        Task<List<SelectListItem>> GetStorageTypesTolist();
+        Task<List<String>> GetStorageTypesTolist();
 
         // method to get specific StorageType by id
         Task<StorageType> GetStorageType(int id);

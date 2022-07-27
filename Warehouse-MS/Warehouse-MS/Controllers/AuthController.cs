@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Warehouse_MS.Auth.Interfaces;
+using Warehouse_MS.Auth.Models;
 using Warehouse_MS.Auth.Models.Dto;
 
 namespace Warehouse_MS.Controllers
@@ -10,10 +13,12 @@ namespace Warehouse_MS.Controllers
     public class AuthController : Controller
     {
         private readonly IUserService _userService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public AuthController(IUserService userService)
+        public AuthController(IUserService userService, UserManager<ApplicationUser> userManager)
         {
             _userService = userService;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -54,40 +59,37 @@ namespace Warehouse_MS.Controllers
         [HttpPost]
         public async Task<IActionResult> Forgotpassword(string email)
         {
-            //var password = _userService.PasswordGenerator(email);
+            if (email == null)
+            {
+                ViewData["emptyEmail"] = "Email cannot be empty";
+                return View();
+            }
+            var userMail = await _userManager.FindByEmailAsync(email);
+            if (userMail == null)
+            {
+                ViewData["email"] = "Email not found";
+                return View();
+            }
+            var password = await _userService.PasswordGenerator(email);
+            var username = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            //if (password == null)
-            //{
-            //    ViewData["email"] = "Email not found";
-            //    return View();
-            //}
+            var dynamicTemplateData = new
+            {
+                u = username,
+                password = password
+            };
 
-            //SendGridClient client = new SendGridClient("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");
-            //SendGridMessage msg = new SendGridMessage();
+            var client = new SendGridClient("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");
+            var msg = new SendGridMessage()
+            {
+                From = new EmailAddress("22029874@student.ltuc.com", "Warehouse MS"),
+                Subject = "Reset password"
+            };
+            msg.AddTo(new EmailAddress(email, username));
+            msg.SetTemplateId("d-41e2bb1ed91d4805b5a7fe7e6d63f2e1");
+            msg.SetTemplateData(dynamicTemplateData);
+            var response = await client.SendEmailAsync(msg);
 
-            //msg.SetFrom("22029874@student.ltuc.com", "Admin");
-            //msg.AddTo(email);
-            //msg.SetSubject("Reset your Password");
-            //msg.AddContent(MimeType.Html, $"This is your new password {email}");
-
-            //await client.SendEmailAsync(msg);
-
-            //return Redirect("/auth/index");
-
-            var client = new SendGridClient("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");
-            var from = new EmailAddress("22029874@student.ltuc.com", "Brent");
-            var to = new EmailAddress(email,"Brent");
-            var subject = "Sending with Twilio SendGrid is fun!";
-            var plainTextContent ="and easy to do anywhere, even with C#!";
-            var htmlContent = "‹strong>and easy to do anywhere, even with C#! strong>";
-            var msg = MailHelper.CreateSingleEmail(
-            from,
-            to,
-            subject,
-            plainTextContent,
-            htmlContent
-);
-            await client.SendEmailAsync(msg);
             return Redirect("/auth/index");
         }
 

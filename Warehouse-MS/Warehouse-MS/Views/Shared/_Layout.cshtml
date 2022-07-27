@@ -123,7 +123,7 @@
             <!-- Dashboard -->
             <li class="menu-item active">
               <a href="/home/index" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <i class="menu-icon tf-icons bx bxs-dashboard "></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
             </li>
@@ -131,7 +131,7 @@
 
              <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <i class="menu-icon tf-icons bx bxs-home-circle"></i>
                 <div data-i18n="Warehouse">Warehouse</div>
               </a>
               <ul class="menu-sub">
@@ -145,7 +145,7 @@
              <!-- Warehouse -->
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <i class="menu-icon tf-icons bx bxs-hdd"></i>
                 <div data-i18n="Storage">Storage</div>
               </a>
               <ul class="menu-sub">
@@ -157,9 +157,9 @@
               </ul>
             </li>
 
-            <li class="menu-item">
+            @*<li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <i class="menu-icon tf-icons bx bxs-dock-top"></i>
                 <div data-i18n="Storage Type">Storage Type</div>
               </a>
               <ul class="menu-sub">
@@ -173,7 +173,7 @@
 
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <i class="menu-icon tf-icons bx bxs-dock-top"></i>
                 <div data-i18n="Transaction">Transaction</div>
               </a>
               <ul class="menu-sub">
@@ -187,7 +187,7 @@
 
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <i class="menu-icon tf-icons bx bxs-dock-top"></i>
                 <div data-i18n="Product Type">Product Type</div>
               </a>
               <ul class="menu-sub">
@@ -197,18 +197,33 @@
                   </a>
                 </li>
               </ul>
-            </li>
+            </li>*@
 
 
              <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <i class="menu-icon tf-icons bx bxs-dock-top"></i>
                 <div data-i18n="Product">Product</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="/Products/Index" class="menu-link">
                     <div data-i18n="Products">Products</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bxs-info-circle"></i>
+                <div data-i18n="About">About</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="/About/Index" class="menu-link">
+                    <div data-i18n="About">About</div>
                   </a>
                 </li>
               </ul>
@@ -227,20 +242,7 @@
                 </div>
 
                 <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-                    <!-- Search -->
-                    <div class="navbar-nav align-items-center">
-                        <div class="nav-item d-flex align-items-center">
-                            <i class="bx bx-search fs-4 lh-0"></i>
-                            <input type="text"
-                                   class="form-control border-0 shadow-none"
-                                   placeholder="Search..."
-                                   aria-label="Search..." />
-                        </div>
-                    </div>
-                    <!-- /Search -->
                     <ul class="navbar-nav flex-row align-items-center ms-auto">
-                        <!-- Place this tag where you want the button to render. -->
-
                             @if(User.Identity.IsAuthenticated)
                             {
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
