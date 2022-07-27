@@ -55,15 +55,9 @@ namespace Warehouse_MS.Models.Services
         {
             return await _context.ProductType.ToListAsync();
         }
-        public async Task<List<SelectListItem>> GetProductTypesTolist()
+        public async Task<List<String>> GetProductTypesTolist()
         {
-
-            return await _context.ProductType.Select(i => new SelectListItem
-             {
-                 Value = i.Id.ToString(),
-                 Text = i.Name
-             }).ToListAsync();
-
+            return await _context.ProductType.Select(n => n.Name).ToListAsync();
         }
 
 

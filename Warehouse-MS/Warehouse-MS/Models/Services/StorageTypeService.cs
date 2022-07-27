@@ -54,14 +54,10 @@ namespace Warehouse_MS.Models.Services
             return await _context.StorageType.ToListAsync();
         }
 
-        public async Task<List<SelectListItem>> GetStorageTypesTolist()
+        public async Task<List<string>> GetStorageTypesTolist()
         {
 
-            return await _context.StorageType.Select(i => new SelectListItem
-            {
-                Value = i.Id.ToString(),
-                Text = i.Name
-            }).ToListAsync();
+            return await _context.StorageType.Select(n => n.Name).ToListAsync();
 
         }
 

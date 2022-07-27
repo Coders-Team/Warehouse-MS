@@ -1,69 +1,51 @@
-﻿
-@using Warehouse_MS.Models.DTO
+﻿@using Warehouse_MS.Models.DTO
 @model WarehouseDto
 @{
     Layout = "_Layout";
 }
-
-@*<div>
-        <h4>@Model.Name</h4>
-        <hr />
-        @if (Model.Storages.Count == 0)
-                {
-            <p>No storage found in this Warehouse</p>
-        }
-        else
-        {
-        <table border=1 class="table">
-        <thead>
-            <tr>
-                <th>
-                    Id
-                </th>
-                <th>
-                    Name
-                </th>
-
-                <th>
-                    SizeInUnit
-                </th>
-                <th>
-                    LocationInWarehouse
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Storages) {
-         <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                 <td>
-                    @Html.DisplayFor(modelItem => item.SizeInUnit)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LocationInWarehouse)
-                </td>
-
-         </tr>
-            }
-        </tbody>
-    </table>
-    }
-    </div>*@
-
 @if (Model.Storages.Count == 0)
 {
-    <p>No storage found in this Warehouse</p>
+    <div class="text-center">
+
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <div class="misc-wrapper">
+                <h2 class="mb-2 mx-2">Opps! No storage found</h2>
+                <p class="mb-4 mx-2">It's ok you can easily go there and create new storage for your warehouse</p>
+                <a href="/storage/create" class="btn btn-primary">Add storage</a>
+                <div class="mt-4">
+                  <img
+                    src="../assets/img/illustrations/girl-doing-yoga-light.png"
+                    alt="girl-doing-yoga-light"
+                    width="500"
+                    class="img-fluid"
+                    data-app-dark-img="../illustrations/girl-doing-yoga-dark.png"
+                    data-app-light-img="../illustrations/girl-doing-yoga-light.png"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
 }
 else
 {
-
     <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="row row-cols-1 row-cols-md-3 g-4 mb-5" style="height:20rem;">
+        <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+            <div class="col">
+            <div class="col" style="display: block;overflow: auto;">
+                <div class="card" style="background-color: inherit;">
+                    <div class="card-body">
+                    <h5 class="text-center">Add Storage</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="col text-center">
+                            <a type="button" href="/Storage/create?id=@Model.Id" class="btn bi-plus btn-icon ">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16"> <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/> <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/> </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
             @foreach (var item in Model.Storages)
             {
                 <div class="col">
@@ -79,39 +61,11 @@ else
                                 <a class="btn btn-primary" href="/Storage/Details?id=@item.Id">Details</a>
                                 <a class="btn btn-primary"  href="/Storage/Edit?id=@item.Id">Edit</a>
                                 <a class="btn btn-danger" href="/Storage/Delete?id=@item.Id">Delete</a>
-
-
                             </div>
                         </div>
                     </div>
                 </div>
-
             }
-            <div class="col">
-                <div class="col">
-                    <div class="card">
-                        <div class="card-body">
-                            <br>
-                            <h5 class="text-center">Add Stroage</h5>
-                            <br>
-                            
-
-                        </div>
-                        <div class="card-body">
-                            <div class="col text-center">
-
-                                <a type="button" asp-controller="Storage" asp-action="Create" class="btn bi-plus btn-icon ">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                                    </svg>
-                                </a>
-                                <br>
-                                <br>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
- } 
+ }

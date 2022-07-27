@@ -102,9 +102,6 @@ namespace Warehouse_MS.Models.Services
         public async Task Delete(int id)
         {
             Warehouse warehouse = await _context.Warehouse.FindAsync(id);
-
-
-
             _context.Entry(warehouse).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
 

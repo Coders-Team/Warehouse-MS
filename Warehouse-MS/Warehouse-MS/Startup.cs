@@ -95,7 +95,7 @@ namespace Warehouse_MS
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Start}/{id?}");
             });
         }
     }

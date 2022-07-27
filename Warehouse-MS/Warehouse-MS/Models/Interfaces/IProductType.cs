@@ -13,7 +13,7 @@ namespace Warehouse_MS.Models.Interfaces
         // method to get all ProductType
         Task<List<ProductType>> GetProductTypes();
 
-        Task<List<SelectListItem>> GetProductTypesTolist();
+        Task<List<String>> GetProductTypesTolist();
 
 
         // method to get specific ProductType by id
